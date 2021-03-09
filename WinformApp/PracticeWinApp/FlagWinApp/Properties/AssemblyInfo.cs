@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 어셈블리에 대한 일반 정보는 다음 특성 집합을 통해 
 // 제어됩니다. 어셈블리와 관련된 정보를 수정하려면
 // 이러한 특성 값을 변경하세요.
-[assembly: AssemblyTitle("ConfirmWinApp")]
-[assembly: AssemblyDescription("윈폼 체크용 윈앱 프로젝트")]
+[assembly: AssemblyTitle("FlagWinApp")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ConfirmWinApp")]
-[assembly: AssemblyCopyright("Copyright © PKNU 2021")]
+[assembly: AssemblyProduct("FlagWinApp")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 이 프로젝트가 COM에 노출되는 경우 다음 GUID는 typelib의 ID를 나타냅니다.
-[assembly: Guid("2ad1ca83-5929-4497-91a0-598558da63fd")]
+[assembly: Guid("c74059db-ecbd-44e9-a172-b1f91321e896")]
 
 // 어셈블리의 버전 정보는 다음 네 가지 값으로 구성됩니다.
 //
