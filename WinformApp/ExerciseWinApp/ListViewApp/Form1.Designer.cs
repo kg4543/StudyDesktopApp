@@ -101,9 +101,11 @@ namespace ListViewApp
             this.columnHeader3,
             this.columnHeader4});
             this.LsvProduct.HideSelection = false;
+            this.LsvProduct.LargeImageList = this.ImgLarge;
             this.LsvProduct.Location = new System.Drawing.Point(12, 53);
             this.LsvProduct.Name = "LsvProduct";
             this.LsvProduct.Size = new System.Drawing.Size(470, 230);
+            this.LsvProduct.SmallImageList = this.ImgSmall;
             this.LsvProduct.TabIndex = 1;
             this.LsvProduct.UseCompatibleStateImageBehavior = false;
             this.LsvProduct.View = System.Windows.Forms.View.Details;
