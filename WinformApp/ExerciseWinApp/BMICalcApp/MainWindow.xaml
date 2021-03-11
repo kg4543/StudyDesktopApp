@@ -1,0 +1,33 @@
+﻿<Window x:Class="BMICalcApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BMICalcApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="353.119" Width="326.459" Background="Honeydew">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="키(cm)"
+               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="몸무게(kg)" 
+               VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"/>
+        <TextBox x:Name="TxtHeight" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10"/>
+        <TextBox x:Name="TxtWeight" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10"/>
+        <Button x:Name="BtnCalc" Grid.Row="2" Grid.Column="1" Content="BMI 계산" Width="150" Height="30" 
+                Click="BtnCalc_Click"/>
+        <TextBlock x:Name="TxtResult" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Text="당신의 BMI는 ________ 입니다."/>
+    </Grid>
+</Window>
