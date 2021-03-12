@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinCalculatorApp", "WinCalculatorApp\WinCalculatorApp.csproj", "{1AFEECA3-725D-409D-9F95-004361A6366D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNotePadApp", "MyNotePadApp\MyNotePadApp.csproj", "{11767101-3EED-4AF3-B0B1-41DBC5DEA7A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1AFEECA3-725D-409D-9F95-004361A6366D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AFEECA3-725D-409D-9F95-004361A6366D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AFEECA3-725D-409D-9F95-004361A6366D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11767101-3EED-4AF3-B0B1-41DBC5DEA7A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11767101-3EED-4AF3-B0B1-41DBC5DEA7A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11767101-3EED-4AF3-B0B1-41DBC5DEA7A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11767101-3EED-4AF3-B0B1-41DBC5DEA7A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
