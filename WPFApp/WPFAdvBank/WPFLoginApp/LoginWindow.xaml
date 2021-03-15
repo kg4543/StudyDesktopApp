@@ -1,0 +1,24 @@
+﻿<Window x:Class="WPFLoginApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFLoginApp"
+        mc:Ignorable="d"
+        Title="Login" Height="327" Width="334" Background="LightSteelBlue" Initialized="Window_Initialized">
+    <Grid Margin="20" Background="White">
+        <StackPanel Margin="20">
+            <Label Content="Login" FontSize="20" HorizontalAlignment="Center" />
+            <Separator Background="Orange" />
+            <Label Content="UserName" FontSize="16"/>
+            <TextBox x:Name="TxtUserID" FontSize="14" Height="25" KeyDown="TxtUserID_KeyDown"/>
+            <Label Content="Password" FontSize="16" />
+            <PasswordBox x:Name="TxtPassword" FontSize="14" Height="25" KeyDown="TxtPassword_KeyDown"/>
+            <Button x:Name="BtnLogin" Content="Log in" FontSize="16" Width="100" Height="30" 
+                    Margin="0, 15" Click="BtnLogin_Click"/>
+            
+            
+
+        </StackPanel>
+    </Grid>
+</Window>
