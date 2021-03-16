@@ -12,7 +12,7 @@ C# 데스크톱 앱 개발 학습 리포지토리
 7. Calculator
 8. Login
 9. AddressInfo
-10. IoTSensor (Random 값 활용)
+[10. IoTSensor (Random 값 활용)](/WinformApp/WinFormAdvancedBank/IoTSensorMonApp)
 
 -------------------------------------
 ## 📘 C# - WPF
