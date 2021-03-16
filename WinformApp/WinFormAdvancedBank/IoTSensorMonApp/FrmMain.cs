@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -12,9 +14,19 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace IoTSensorMonApp
 {
+
     public partial class FrmMain : Form
     {
         private double xCount = 200;
+        private Timer timerSimul = new Timer();
+        private Random randPhoto = new Random();
+        private bool IsSimulation = false;
+        private List<SensorData> sensors = new List<SensorData>(); // 차트,리스트박스에 출력
+        private string connString = "Data Source=127.0.0.1;" +
+                                    "Initial Catalog=IoTData;" +
+                                    "Persist Security Info=True;" +
+                                    "User ID=sa;" +
+                                    "Password=mssql_p@ssw0rd!";
 
         public FrmMain()
         {
@@ -100,17 +112,13 @@ namespace IoTSensorMonApp
             // 실제 작업시 작성
         }
 
-        private Timer timerSimul = new Timer();
-        private Random randPhoto = new Random();
-        private bool IsSimulation = false;
-        private List<SensorData> sensors = new List<SensorData>(); // 차트,리스트박스에 출력
 
         private void MnunBeginSimulation_Click(object sender, EventArgs e)
         {
             //시뮬레이션 시작
             IsSimulation = true;
             timerSimul.Enabled = true;
-            timerSimul.Interval = 1000;
+            timerSimul.Interval = 1000; //1초
             timerSimul.Tick += TimerSimul_Tick;
             timerSimul.Start();
         }
@@ -128,6 +136,7 @@ namespace IoTSensorMonApp
             var currentTime = DateTime.Now;
             SensorData data = new SensorData(currentTime, val, IsSimulation);
             sensors.Add(data);
+            InsertTable(data);
 
             //센서 값 갯수
             TxtSensorNum.Text = sensors.Count.ToString(); // or $"{sensors.Count}"
@@ -139,7 +148,54 @@ namespace IoTSensorMonApp
             LsbPhotoRegisters.SelectedIndex = LsbPhotoRegisters.Items.Count - 1; //스크롤처리
             //차트에 데이터 출력
             ChtPhotoRegisters.Series[0].Points.Add(val);
+
+            //200개 넘으면
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Minimum = 0;
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Maximum = (sensors.Count >= xCount) ? sensors.Count : xCount;
+
+            //Zoom 처리
+            if (sensors.Count > xCount)
+                ChtPhotoRegisters.ChartAreas[0].AxisX.ScaleView.Zoom(sensors.Count - xCount, sensors.Count);
+            else
+            ChtPhotoRegisters.ChartAreas[0].AxisX.ScaleView.Zoom(0, xCount);
+
+            //BtnDisplay 표시
+            if (IsSimulation)
+            {
+                BtnDisplay.Text = val.ToString();
+            }
+            else
+                BtnDisplay.Text = "~" + "\n" + val.ToString();
         }
+
+        /// <summary>
+        /// IoTData
+        /// </summary>
+        /// <param name="data"></param>
+        private void InsertTable(SensorData data)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    if (conn.State == ConnectionState.Closed)
+                        conn.Open();
+
+                    var query = $"insert into Tbl_PhotoRegister " +
+                                $"(CurrentDt, Value, SimulFlag) values " +
+                                $"('{data.Current.ToString("yyyy-MM-dd HH:mm:ss")}'," +
+                                $"'{data.Value}','{(data.SimulFlag == true ? "1" : "0" )}')";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"예외발생 : {ex.Message}");
+            }
+        }
+
 
         private void MnuEndSimulation_Click(object sender, EventArgs e)
         {
@@ -157,5 +213,26 @@ namespace IoTSensorMonApp
             }
             Environment.Exit(0);
         }
+
+        private void BtnViewAll_Click(object sender, EventArgs e)
+        {
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Minimum = 0;
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Maximum = sensors.Count;
+
+            ChtPhotoRegisters.ChartAreas[0].AxisX.ScaleView.Zoom(0, sensors.Count);
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Interval = xCount / 4;
+
+        }
+
+        private void BtnZoom_Click(object sender, EventArgs e)
+        {
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Minimum = 0;
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Maximum = sensors.Count;
+
+            ChtPhotoRegisters.ChartAreas[0].AxisX.ScaleView.Zoom(sensors.Count - xCount, sensors.Count);
+            ChtPhotoRegisters.ChartAreas[0].AxisX.Interval = xCount / 4;
+        }
+
+
     }
 }
