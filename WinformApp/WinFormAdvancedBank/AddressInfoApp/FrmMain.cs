@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AddressInfoApp
@@ -114,24 +108,28 @@ namespace AddressInfoApp
                 MessageBox.Show("데이터를 선택하십시오!");
                 return;
             }
-            using (SqlConnection conn = new SqlConnection(connString))
+
+            if(MessageBox.Show("삭제하시겠습니까?","삭제",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-
-                string query = $"Delete from Address Where idx = '{result}'";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                if (cmd.ExecuteNonQuery() == 1)
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    MessageBox.Show("삭제 성공!");
+                    if (conn.State == ConnectionState.Closed)
+                        conn.Open();
+
+                    string query = $"Delete from Address Where idx = '{result}'";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    if (cmd.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("삭제 성공!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("삭제 실패!");
+                    }
+                    ClearInput();
+                    RefreshData();
                 }
-                else
-                {
-                    MessageBox.Show("삭제 실패!");
-                }
-                ClearInput();
-                RefreshData();
             }
         }
 
