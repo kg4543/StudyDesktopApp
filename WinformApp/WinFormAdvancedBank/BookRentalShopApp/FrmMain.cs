@@ -1,4 +1,5 @@
-﻿using MetroFramework.Forms;
+﻿using MetroFramework;
+using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,51 @@ namespace BookRentalShopApp
         {
             FrmLogin frm = new FrmLogin();
             frm.ShowDialog();
+        }
+
+        private void MnuExit_Click(object sender, EventArgs e)
+        {
+            if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        private void MnuDivCode_Click(object sender, EventArgs e)
+        {
+            FrmDivCode frm = new FrmDivCode();
+            frm.Dock = DockStyle.Fill;
+            frm.MdiParent = this; //FrmMain
+            frm.Show();
+            frm.Width = this.ClientSize.Width - 10; //크기맞추기
+            frm.Height = this.Height - menuStrip1.Height; //크기맞추기
+
+            frm.WindowState = FormWindowState.Maximized;
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                e.Cancel = false;
+                Environment.Exit(0);
+            }
+            else
+                e.Cancel = true;
+        }
+
+        private void MnuMember_Click(object sender, EventArgs e)
+        {
+            FrmMember frm = new FrmMember();
+            frm.Dock = DockStyle.Fill;
+            frm.MdiParent = this; //FrmMain
+            frm.Show();
+            frm.Width = this.ClientSize.Width - 10; //크기맞추기
+            frm.Height = this.Height - menuStrip1.Height; //크기맞추기
+
+            frm.WindowState = FormWindowState.Maximized;
         }
     }
 }

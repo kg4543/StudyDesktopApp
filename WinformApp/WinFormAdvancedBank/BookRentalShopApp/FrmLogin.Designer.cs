@@ -102,7 +102,7 @@ namespace BookRentalShopApp
             this.TxtPassword.CustomButton.Visible = false;
             this.TxtPassword.Lines = new string[0];
             this.TxtPassword.Location = new System.Drawing.Point(110, 110);
-            this.TxtPassword.MaxLength = 32767;
+            this.TxtPassword.MaxLength = 20;
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.PasswordChar = '●';
             this.TxtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
