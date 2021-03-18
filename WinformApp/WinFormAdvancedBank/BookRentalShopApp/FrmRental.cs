@@ -5,17 +5,22 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace BookRentalShopApp
 {
-    public partial class FrmBooks : MetroForm
+    public partial class FrmRental : MetroForm
     {
         #region 전역변수 영역
         private bool IsNew { get; set; } // false (수정) / true (신규)
+        private int selMemberIdx = 0; //선택된 회원번호
+        private string selMemberName = ""; //선택된 회원이름
+        private int selBookIdx = 0; //선택된 책번호
+        private string selBookName = ""; //선택된 책이름
         #endregion
 
         #region 이벤트 영역
-        public FrmBooks()
+        public FrmRental()
         {
             InitializeComponent();
         }
@@ -27,8 +32,8 @@ namespace BookRentalShopApp
             RefreshData(); //테이블 조회
             ClearInputs();
 
-            DtpReleaseDate.CustomFormat = "yyyy-MM-dd";
-            DtpReleaseDate.Format = DateTimePickerFormat.Custom;
+            DtpRentalDate.CustomFormat = "yyyy-MM-dd";
+            DtpRentalDate.Format = DateTimePickerFormat.Custom;
         }
 
         private void FrmDivCode_Resize(object sender, EventArgs e)
@@ -46,17 +51,18 @@ namespace BookRentalShopApp
                 AsignToControls(selData);
                 
                 IsNew = false;
+                BtnSearchMember.Enabled = BtnSearchBook.Enabled = false;
+                DtpRentalDate.Enabled = false;
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnReturn_Click(object sender, EventArgs e)
         {
-            // Validation 유효성 체크
-            if (CheckValidation() == false) return;
-
-            DeleteDate();
+            IsNew = false;
+            SaveDate();
             RefreshData();
             ClearInputs();
+            // GetDate를 문자열로 바꿔야함
         }
 
         private void BtnNew_Click(object sender, EventArgs e)
@@ -82,23 +88,17 @@ namespace BookRentalShopApp
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                {
-                   if (conn.State == ConnectionState.Closed) conn.Open();
-                    var query = "select Division,Names from dbo.divtbl";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    var temp = new Dictionary<string, string>();
-                    while (reader.Read())
-                    {
-                        temp.Add(reader[0].ToString(), reader[1].ToString()); // B001, 공포스릴러
-                    }
-                    CboDivision.DataSource = new BindingSource(temp, null);
-                    CboDivision.DisplayMember = "Value";
-                    CboDivision.ValueMember = "Key";
-                    CboDivision.SelectedIndex = -1;
-                }
+                var temp = new Dictionary<string, string>();
+                temp.Add("R", "대여");
+                temp.Add("T", "반납");
+
+                CboRentalState.DataSource = new BindingSource(temp, null);
+                CboRentalState.DisplayMember = "Value";
+                CboRentalState.ValueMember = "Key";
+                CboRentalState.SelectedIndex = -1;
+                    
             }
+
             catch { }
         }
 
@@ -109,13 +109,16 @@ namespace BookRentalShopApp
         private void AsignToControls(DataGridViewRow selData)
         {
             TxtIdx.Text = selData.Cells[0].Value.ToString();
-            TxtAuthor.Text = selData.Cells[1].Value.ToString();
-            CboDivision.SelectedValue = selData.Cells[2].Value.ToString();
-            DtpReleaseDate.Value = (DateTime)selData.Cells[5].Value;
-            TxtNames.Text = selData.Cells[4].Value.ToString();
-            TxtISBN.Text = selData.Cells[6].Value.ToString();
-            TxtPrice.Text = selData.Cells[7].Value.ToString();
-            TxtDescriptions.Text = selData.Cells[8].Value.ToString();
+            selMemberIdx = (int)selData.Cells[1].Value;
+            Debug.WriteLine($">>>> selMemberIdx : {selMemberIdx}");
+            TxtMemberName.Text = selData.Cells[2].Value.ToString();
+            selBookIdx = (int)selData.Cells[3].Value;
+            Debug.WriteLine($">>>> selBookIdx : {selBookIdx}");
+            selBookName = selData.Cells[4].Value.ToString();
+            DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
+            TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
+            CboRentalState.SelectedValue = selData.Cells[7].Value;
+
             TxtIdx.ReadOnly = true;
         }
 
@@ -125,9 +128,8 @@ namespace BookRentalShopApp
         /// <returns></returns>
         private bool CheckValidation()
         {
-            if ( string.IsNullOrEmpty(TxtAuthor.Text) || string.IsNullOrEmpty(TxtNames.Text)
-                || DtpReleaseDate.Value == null || string.IsNullOrEmpty(TxtISBN.Text) 
-                || string.IsNullOrEmpty(TxtPrice.Text) || CboDivision.SelectedIndex == -1)
+            if ( string.IsNullOrEmpty(TxtMemberName.Text) || string.IsNullOrEmpty(TxtBookName.Text) ||
+                DtpRentalDate.Value == null)
             {
                 MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -146,25 +148,30 @@ namespace BookRentalShopApp
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
 
-                    var query = @"SELECT b.Idx
-                                          ,b.Author
-                                          ,b.Division
-	                                      ,d.Names as DivName
-                                          ,b.Names
-                                          ,b.ReleaseDate
-                                          ,b.ISBN
-                                          ,Format(b.Price, '#,##') as 'Price'
-                                          ,b.Descriptions
-                                      FROM dbo.bookstbl as b
-                                     inner join dbo.divtbl as d
-	                                    on b.Division = d.Division;";
+                    var query = @"SELECT r.Idx
+                                          ,r.memberIdx
+	                                      ,m.Names as '회원'
+                                          ,r.bookIdx
+	                                      ,b.Names as '도서'
+                                          ,r.rentalDate as '대여일'
+                                          ,r.returnDate as '반납일'
+	                                      ,case r.rentalState 
+		                                    when 'R' then '대여'
+		                                    when 'T' then '반납'
+		                                    else '상태없음' 
+		                                    end as '대여 상태'
+                                      FROM dbo.rentaltbl as r
+	                                     , dbo.membertbl as m
+	                                     , dbo.bookstbl as b
+                                     where r.memberIdx = m.Idx
+                                       and r.bookIdx = b.Idx;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn); // 가져올 데이터베이스를 변환
                     DataSet ds = new DataSet(); // 가상의 데이터베이스
-                    adapter.Fill(ds, "bookstbl");
+                    adapter.Fill(ds, "rentaltbl");
 
                     DgvData.DataSource = ds;
-                    DgvData.DataMember = "bookstbl";
+                    DgvData.DataMember = "rentaltbl";
                 }
             }
             catch (Exception ex)
@@ -172,15 +179,13 @@ namespace BookRentalShopApp
                 MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            var column = DgvData.Columns[2]; //Div column
+            var column = DgvData.Columns[1]; //MemberIdx column
             column.Visible = false;
-            column = DgvData.Columns[8]; //Descriptions column
+            column = DgvData.Columns[3]; //BookIdx column
             column.Visible = false;
-            column = DgvData.Columns[4]; // Name column
-            column.Width = 250;
-            column.HeaderText = "도서명";
-            column = DgvData.Columns[0];
-            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            /*column = DgvData.Columns[7]; //rentalState column
+            column.Visible = false;*/
+
         }
         /// <summary>
         /// 입력되어 있는 값들 초기화
@@ -188,12 +193,19 @@ namespace BookRentalShopApp
         /// </summary>
         private void ClearInputs()
         {
-            TxtIdx.Text = TxtAuthor.Text = TxtNames.Text = 
-            TxtISBN.Text = TxtPrice.Text = TxtDescriptions.Text = "";
-            CboDivision.SelectedIndex = -1;
-            DtpReleaseDate.Value = DateTime.Now;
-            // TxtIdx.ReadOnly = false;
+            selMemberIdx = 0;
+            selMemberName = "";
+            selBookIdx = 0;
+            selBookName = "";
+            TxtBookName.Text = TxtMemberName.Text = "";
+            TxtIdx.Text = "";
+            DtpRentalDate.Value = DateTime.Now;
+            TxtReturnDate.Text = "";
+            CboRentalState.SelectedIndex = -1;
+
             IsNew = true;
+            BtnSearchMember.Enabled = BtnSearchBook.Enabled = true;
+            DtpRentalDate.Enabled = true;
         }
         /// <summary>
         /// 데이터 입력 및 수정
@@ -211,67 +223,54 @@ namespace BookRentalShopApp
 
                     if (IsNew == true)
                     {
-                        query = @"INSERT INTO [dbo].[bookstbl]
-                                                   ([Author]
-                                                   ,[Division]
-                                                   ,[Names]
-                                                   ,[ReleaseDate]
-                                                   ,[ISBN]
-                                                   ,[Price]
-                                                   ,[Descriptions])
+                        query = @"INSERT into [dbo].[rentaltbl]
+                                                   ([memberIdx]
+                                                   ,[bookIdx]
+                                                   ,[rentalDate]
+                                                   ,[rentalState])
                                              VALUES
-                                                   (@Author,
-                                                   @Division,
-                                                   @Names,
-                                                   @ReleaseDate,
-                                                   @ISBN,
-                                                   @Price,
-                                                   @Descriptions)";
+                                                   (@memberIdx
+                                                   ,@bookIdx
+                                                   ,@rentalDate
+                                                   ,@rentalState)";
                     }
                     else
                     {
-                        query = @"UPDATE [dbo].[bookstbl]
-                                           SET [Author] = @Author
-                                              ,[Division] = @Division
-                                              ,[Names] = @Names
-                                              ,[ReleaseDate] = @ReleaseDate
-                                              ,[ISBN] = @ISBN
-                                              ,[Price] = @Price
-                                              ,[Descriptions] = @Descriptions
-                                         WHERE Idx = @Idx";
+                        query = @"UPDATE [dbo].[rentaltbl]
+                                       SET [returnDate] = GETDATE()
+                                          ,[rentalState] = 'T'
+                                     WHERE Idx =@Idx";
                     }
 
                     SqlCommand cmd = new SqlCommand(query, conn);
 
-                    var pAuthor = new SqlParameter("@Author", SqlDbType.NVarChar, 50);
-                    pAuthor.Value = TxtAuthor.Text;
-                    cmd.Parameters.Add(pAuthor);
+                    if (IsNew == true)
+                    {
+                        var pMemberIdx = new SqlParameter("@memberIdx", SqlDbType.Int);
+                        pMemberIdx.Value = selMemberIdx;
+                        cmd.Parameters.Add(pMemberIdx);
 
-                    var pDivision = new SqlParameter("@Division", SqlDbType.VarChar, 8);
-                    pDivision.Value = CboDivision.SelectedValue;
-                    cmd.Parameters.Add(pDivision);
+                        var pBookIdx = new SqlParameter("@bookIdx", SqlDbType.Int);
+                        pBookIdx.Value = selBookIdx;
+                        cmd.Parameters.Add(pBookIdx);
 
-                    var pNames = new SqlParameter("@Names", SqlDbType.NVarChar, 100);
-                    pNames.Value = TxtNames.Text;
-                    cmd.Parameters.Add(pNames);
+                        var pRentalDate = new SqlParameter("@rentalDate", SqlDbType.Date);
+                        pRentalDate.Value = DtpRentalDate.Value;
+                        cmd.Parameters.Add(pRentalDate);
 
-                    var pReleaseDate = new SqlParameter("@ReleaseDate", SqlDbType.Date);
-                    pReleaseDate.Value = DtpReleaseDate.Value;
-                    cmd.Parameters.Add(pReleaseDate);
+                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char);
+                        pRentalState.Value = CboRentalState.SelectedValue;
+                        cmd.Parameters.Add(pRentalState);
+                    }
+                    else
+                    {
+                        var pIdx = new SqlParameter("@Idx", SqlDbType.Date);
+                        pIdx.Value = TxtIdx;
+                        cmd.Parameters.Add(pIdx);
+                    }
+                        
 
-                    var pISBN = new SqlParameter(@"ISBN", SqlDbType.VarChar, 200);
-                    pISBN.Value = TxtISBN.Text;
-                    cmd.Parameters.Add(pISBN);
-
-                    var pPrice = new SqlParameter(@"Price", SqlDbType.Decimal);
-                    pPrice.Value = TxtPrice.Text;
-                    cmd.Parameters.Add(pPrice);
-
-                    var pDescriptions = new SqlParameter(@"Descriptions", SqlDbType.NVarChar);
-                    pDescriptions.Value = TxtDescriptions.Text;
-                    cmd.Parameters.Add(pDescriptions);
-
-                    if(IsNew == false) //update일 때만 처리
+                    if (IsNew == false) //update일 때만 처리
                     {
                         var pIdx = new SqlParameter(@"Idx", SqlDbType.Int);
                         pIdx.Value = TxtIdx.Text;
@@ -335,6 +334,27 @@ namespace BookRentalShopApp
                 MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void BtnSearchMember_Click(object sender, EventArgs e)
+        {
+            FrmMemberPopup frm = new FrmMemberPopup();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                selMemberIdx = frm.SelIdx;
+                TxtMemberName.Text = selMemberName = frm.SelName;
+            }
+        }
+
+        private void BtnSearchBook_Click(object sender, EventArgs e)
+        {
+            FrmBooksPopup frm = new FrmBooksPopup();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                selBookIdx = frm.SelIdx;
+                TxtBookName.Text = selBookName = frm.SelName;
+            }
+        }
         #endregion
+
+
     }
 }

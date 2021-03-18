@@ -55,6 +55,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmBooksPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBooksPopup.Designer.cs">
+      <DependentUpon>FrmBooksPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMemberPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMemberPopup.Designer.cs">
+      <DependentUpon>FrmMemberPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRental.Designer.cs">
+      <DependentUpon>FrmRental.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmBooks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +106,15 @@
     <Compile Include="Helper\Common.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmBooksPopup.resx">
+      <DependentUpon>FrmBooksPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMemberPopup.resx">
+      <DependentUpon>FrmMemberPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRental.resx">
+      <DependentUpon>FrmRental.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBooks.resx">
       <DependentUpon>FrmBooks.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +156,7 @@
   <ItemGroup>
     <Content Include="book.ico" />
     <Content Include="book.png" />
+    <Content Include="search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

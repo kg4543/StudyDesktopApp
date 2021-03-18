@@ -95,6 +95,7 @@ namespace BookRentalShopApp
             this.MnuRental.Name = "MnuRental";
             this.MnuRental.Size = new System.Drawing.Size(180, 22);
             this.MnuRental.Text = "대여(&R)";
+            this.MnuRental.Click += new System.EventHandler(this.MnuRental_Click);
             // 
             // MnuExit
             // 
@@ -117,6 +118,7 @@ namespace BookRentalShopApp
             this.TransparencyKey = System.Drawing.Color.Empty;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.Shown += new System.EventHandler(this.FrmMain_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

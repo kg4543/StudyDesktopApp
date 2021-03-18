@@ -75,5 +75,17 @@ namespace BookRentalShopApp
             FrmBooks frm = new FrmBooks();
             InitChildForm(frm, "도서 관리");
         }
+        private void MnuRental_Click(object sender, EventArgs e)
+        {
+            FrmRental frm = new FrmRental();
+            InitChildForm(frm, "대여 관리");
+        }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
