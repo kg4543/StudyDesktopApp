@@ -44,6 +44,7 @@ namespace BookRentalShopApp
             // 
             // GrbDetail
             // 
+            this.GrbDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GrbDetail.Controls.Add(this.BtnSave);
             this.GrbDetail.Controls.Add(this.BtnNew);
             this.GrbDetail.Controls.Add(this.BtnDelete);
@@ -177,6 +178,8 @@ namespace BookRentalShopApp
             // 
             this.DgvData.AllowUserToAddRows = false;
             this.DgvData.AllowUserToDeleteRows = false;
+            this.DgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvData.Location = new System.Drawing.Point(9, 63);
             this.DgvData.Name = "DgvData";
@@ -190,13 +193,12 @@ namespace BookRentalShopApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 420);
+            this.ClientSize = new System.Drawing.Size(685, 419);
             this.Controls.Add(this.DgvData);
             this.Controls.Add(this.GrbDetail);
             this.Name = "FrmDivCode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "책 구분 코드 관리";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "장르 관리";
             this.Load += new System.EventHandler(this.FrmDivCode_Load);
             this.Resize += new System.EventHandler(this.FrmDivCode_Resize);
             this.GrbDetail.ResumeLayout(false);

@@ -184,7 +184,7 @@ namespace BookRentalShopApp
         {
             try
             {
-                if (MetroMessageBox.Show(this, "삭제하시겠습니까?,", "삭제",
+                if (MetroMessageBox.Show(this, "삭제하시겠습니까?", "삭제",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))

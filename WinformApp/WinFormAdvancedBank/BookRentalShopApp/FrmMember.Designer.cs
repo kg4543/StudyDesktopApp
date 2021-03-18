@@ -417,6 +417,7 @@ namespace BookRentalShopApp
             this.TxtIdx.Name = "TxtIdx";
             this.TxtIdx.PasswordChar = '\0';
             this.TxtIdx.PromptText = "순번";
+            this.TxtIdx.ReadOnly = true;
             this.TxtIdx.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TxtIdx.SelectedText = "";
             this.TxtIdx.SelectionLength = 0;

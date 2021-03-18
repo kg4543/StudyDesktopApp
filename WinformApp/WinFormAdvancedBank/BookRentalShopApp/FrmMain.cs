@@ -34,18 +34,6 @@ namespace BookRentalShopApp
             }
         }
 
-        private void MnuDivCode_Click(object sender, EventArgs e)
-        {
-            FrmDivCode frm = new FrmDivCode();
-            frm.Dock = DockStyle.Fill;
-            frm.MdiParent = this; //FrmMain
-            frm.Show();
-            frm.Width = this.ClientSize.Width - 10; //크기맞추기
-            frm.Height = this.Height - menuStrip1.Height; //크기맞추기
-
-            frm.WindowState = FormWindowState.Maximized;
-        }
-
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
@@ -58,16 +46,34 @@ namespace BookRentalShopApp
                 e.Cancel = true;
         }
 
+        private void InitChildForm(Form frm,string strTitle)
+        {
+            frm.Text = strTitle;
+            frm.Dock = DockStyle.Fill;
+            frm.MdiParent = this; //FrmMain
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.Width = this.ClientSize.Width - 10; //크기맞추기
+            frm.Height = this.Height - menuStrip1.Height; //크기맞추기
+            frm.Show();
+            frm.WindowState = FormWindowState.Maximized;
+        }
+
+        private void MnuDivCode_Click(object sender, EventArgs e)
+        {
+            FrmDivCode frm = new FrmDivCode();
+            InitChildForm(frm, "장르 관리");
+        }
+
         private void MnuMember_Click(object sender, EventArgs e)
         {
             FrmMember frm = new FrmMember();
-            frm.Dock = DockStyle.Fill;
-            frm.MdiParent = this; //FrmMain
-            frm.Show();
-            frm.Width = this.ClientSize.Width - 10; //크기맞추기
-            frm.Height = this.Height - menuStrip1.Height; //크기맞추기
+            InitChildForm(frm, "회원관리");
+        }
 
-            frm.WindowState = FormWindowState.Maximized;
+        private void MnuBooks_Click(object sender, EventArgs e)
+        {
+            FrmBooks frm = new FrmBooks();
+            InitChildForm(frm, "도서 관리");
         }
     }
 }

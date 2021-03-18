@@ -68,7 +68,7 @@ namespace BookRentalShopApp
             // 
             this.MnuDivCode.Name = "MnuDivCode";
             this.MnuDivCode.Size = new System.Drawing.Size(180, 22);
-            this.MnuDivCode.Text = "구분코드(&C)";
+            this.MnuDivCode.Text = "장르(&C)";
             this.MnuDivCode.Click += new System.EventHandler(this.MnuDivCode_Click);
             // 
             // MnuMember
@@ -83,6 +83,7 @@ namespace BookRentalShopApp
             this.MnuBooks.Name = "MnuBooks";
             this.MnuBooks.Size = new System.Drawing.Size(180, 22);
             this.MnuBooks.Text = "도서(&B)";
+            this.MnuBooks.Click += new System.EventHandler(this.MnuBooks_Click);
             // 
             // toolStripMenuItem1
             // 
