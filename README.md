@@ -3,23 +3,23 @@ C# 데스크톱 앱 개발 학습 리포지토리
 
 ## 📕 C# - Winform
 
-[1. ListBox](/WinformApp/ExerciseWinApp/ListBoxWinApp)
-2. TreeNode
-3. Alarm
-4. MoviePlayer
-5. NotePad
-6. Paint
-7. Calculator
-8. Login
-<br> [9. AddressInfo](/WinformApp/WinFormAdvancedBank/AddressInfoApp)
-<br> [10. IoTSensor (Random 값 활용)](/WinformApp/WinFormAdvancedBank/IoTSensorMonApp)
+[1. ListBox](/WinformApp/ExerciseWinApp/ListBoxWinApp) <br>
+[2. TreeNode](/WinformApp/ExerciseWinApp/StudyHistoryApp) <br>
+[3. Alarm](/WinformApp/ExerciseWinApp/AlarmClockApp) <br>
+[4. MoviePlayer](/WinformApp/ExerciseWinApp/MoviePlayerApp) <br>
+[5. NotePad](/WinformApp/WinExecutiveBank/MyNotePadApp) <br>
+[6. Paint](/WinformApp/ExerciseWinApp/SimpleGraphicEditer) <br>
+[7. Calculator](/WinformApp/WinExecutiveBank/WinCalculatorApp) <br>
+[8. Login](/WinformApp/PracticeWinApp/LoginWinApp) <br>
+[9. AddressInfo](/WinformApp/WinFormAdvancedBank/AddressInfoApp) <br>
+[10. IoTSensor (Random 값 활용)](/WinformApp/WinFormAdvancedBank/IoTSensorMonApp)
 
 -------------------------------------
 ## 📘 C# - WPF
 
-1. Calculator
-2. Login
-3. Analog Clock
+[1. Calculator](/WPFApp/WpfExecutiveBank/WpfCalculatorApp) <br>
+[2. Login](/WPFApp/WPFAdvBank/WPFLoginApp) <br>
+[3. Analog Clock](/WPFApp/WpfExecutiveBank/AnalogClockApp) <br>
 
 ------------------------------------
 ## 📗 도서관리 프로그램
