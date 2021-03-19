@@ -58,8 +58,7 @@ namespace BookRentalShopApp
 
         private void BtnReturn_Click(object sender, EventArgs e)
         {
-            IsNew = false;
-            SaveDate();
+            SaveData();
             RefreshData();
             ClearInputs();
             // GetDate를 문자열로 바꿔야함
@@ -74,7 +73,7 @@ namespace BookRentalShopApp
         {
             if (CheckValidation() == false) return;
 
-            SaveDate();
+            SaveData();
             RefreshData();
             ClearInputs();
         }
@@ -114,10 +113,10 @@ namespace BookRentalShopApp
             TxtMemberName.Text = selData.Cells[2].Value.ToString();
             selBookIdx = (int)selData.Cells[3].Value;
             Debug.WriteLine($">>>> selBookIdx : {selBookIdx}");
-            selBookName = selData.Cells[4].Value.ToString();
+            TxtBookName.Text = selData.Cells[4].Value.ToString();
             DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
             TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
-            CboRentalState.SelectedValue = selData.Cells[7].Value;
+            CboRentalState.SelectedValue = selData.Cells[7].Value.ToString();
 
             TxtIdx.ReadOnly = true;
         }
@@ -211,7 +210,7 @@ namespace BookRentalShopApp
         /// 데이터 입력 및 수정
         /// Insert 및 Update Query문
         /// </summary>
-        private void SaveDate()
+        private void SaveData()
         {
             try
             {
@@ -237,9 +236,12 @@ namespace BookRentalShopApp
                     else
                     {
                         query = @"UPDATE [dbo].[rentaltbl]
-                                       SET [returnDate] = GETDATE()
-                                          ,[rentalState] = 'T'
-                                     WHERE Idx =@Idx";
+                                           SET [returnDate] = case @rentalState
+						                                        when 'T' Then GETDATE()
+						                                        when 'R' Then Null
+						                                        end
+                                              ,[rentalState] = 'T'
+                                         WHERE Idx = @Idx";
                     }
 
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -264,6 +266,10 @@ namespace BookRentalShopApp
                     }
                     else
                     {
+                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char);
+                        pRentalState.Value = CboRentalState.SelectedValue;
+                        cmd.Parameters.Add(pRentalState);
+
                         var pIdx = new SqlParameter("@Idx", SqlDbType.Date);
                         pIdx.Value = TxtIdx;
                         cmd.Parameters.Add(pIdx);

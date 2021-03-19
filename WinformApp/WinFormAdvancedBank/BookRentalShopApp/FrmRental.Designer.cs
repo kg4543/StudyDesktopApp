@@ -123,11 +123,11 @@ namespace BookRentalShopApp
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(34, 218);
+            this.metroLabel6.Location = new System.Drawing.Point(48, 221);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(58, 19);
+            this.metroLabel6.Size = new System.Drawing.Size(44, 19);
             this.metroLabel6.TabIndex = 21;
-            this.metroLabel6.Text = "반납일 :";
+            this.metroLabel6.Text = "반납 :";
             // 
             // metroLabel4
             // 
