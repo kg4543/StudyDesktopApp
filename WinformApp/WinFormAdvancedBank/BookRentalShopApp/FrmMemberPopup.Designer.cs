@@ -55,7 +55,7 @@ namespace BookRentalShopApp
             this.BtnSelect.Name = "BtnSelect";
             this.BtnSelect.Size = new System.Drawing.Size(75, 35);
             this.BtnSelect.TabIndex = 2;
-            this.BtnSelect.Text = "선택";
+            this.BtnSelect.Text = "Select";
             this.BtnSelect.UseSelectable = true;
             this.BtnSelect.Click += new System.EventHandler(this.BtnSelect_Click);
             // 
@@ -65,7 +65,7 @@ namespace BookRentalShopApp
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 35);
             this.BtnCancel.TabIndex = 3;
-            this.BtnCancel.Text = "취소";
+            this.BtnCancel.Text = "Cancel";
             this.BtnCancel.UseSelectable = true;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 

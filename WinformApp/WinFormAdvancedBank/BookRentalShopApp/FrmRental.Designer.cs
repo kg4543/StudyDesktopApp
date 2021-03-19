@@ -45,7 +45,6 @@ namespace BookRentalShopApp
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.BtnSave = new MetroFramework.Controls.MetroButton();
             this.BtnNew = new MetroFramework.Controls.MetroButton();
-            this.BtnReturn = new MetroFramework.Controls.MetroButton();
             this.TxtMemberName = new MetroFramework.Controls.MetroTextBox();
             this.TxtIdx = new MetroFramework.Controls.MetroTextBox();
             this.DgvData = new System.Windows.Forms.DataGridView();
@@ -70,7 +69,6 @@ namespace BookRentalShopApp
             this.GrbDetail.Controls.Add(this.metroLabel1);
             this.GrbDetail.Controls.Add(this.BtnSave);
             this.GrbDetail.Controls.Add(this.BtnNew);
-            this.GrbDetail.Controls.Add(this.BtnReturn);
             this.GrbDetail.Controls.Add(this.TxtMemberName);
             this.GrbDetail.Controls.Add(this.TxtIdx);
             this.GrbDetail.Location = new System.Drawing.Point(551, 63);
@@ -238,35 +236,24 @@ namespace BookRentalShopApp
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(129, 548);
+            this.BtnSave.Location = new System.Drawing.Point(206, 539);
             this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.Size = new System.Drawing.Size(75, 32);
             this.BtnSave.TabIndex = 11;
-            this.BtnSave.Text = "저장";
+            this.BtnSave.Text = "Save";
             this.BtnSave.UseSelectable = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnNew
             // 
             this.BtnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnNew.Location = new System.Drawing.Point(48, 548);
+            this.BtnNew.Location = new System.Drawing.Point(72, 539);
             this.BtnNew.Name = "BtnNew";
-            this.BtnNew.Size = new System.Drawing.Size(75, 23);
+            this.BtnNew.Size = new System.Drawing.Size(75, 32);
             this.BtnNew.TabIndex = 10;
-            this.BtnNew.Text = "신규";
+            this.BtnNew.Text = "New";
             this.BtnNew.UseSelectable = true;
             this.BtnNew.Click += new System.EventHandler(this.BtnNew_Click);
-            // 
-            // BtnReturn
-            // 
-            this.BtnReturn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnReturn.Location = new System.Drawing.Point(210, 548);
-            this.BtnReturn.Name = "BtnReturn";
-            this.BtnReturn.Size = new System.Drawing.Size(75, 23);
-            this.BtnReturn.TabIndex = 12;
-            this.BtnReturn.Text = "반납";
-            this.BtnReturn.UseSelectable = true;
-            this.BtnReturn.Click += new System.EventHandler(this.BtnReturn_Click);
             // 
             // TxtMemberName
             // 
@@ -373,7 +360,6 @@ namespace BookRentalShopApp
         private System.Windows.Forms.GroupBox GrbDetail;
         private MetroFramework.Controls.MetroButton BtnSave;
         private MetroFramework.Controls.MetroButton BtnNew;
-        private MetroFramework.Controls.MetroButton BtnReturn;
         private System.Windows.Forms.DataGridView DgvData;
         private MetroFramework.Controls.MetroComboBox CboRentalState;
         private MetroFramework.Controls.MetroLabel metroLabel6;

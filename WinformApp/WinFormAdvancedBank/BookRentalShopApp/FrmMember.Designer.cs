@@ -339,7 +339,7 @@ namespace BookRentalShopApp
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 12;
-            this.BtnSave.Text = "저장";
+            this.BtnSave.Text = "Save";
             this.BtnSave.UseSelectable = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
@@ -350,7 +350,7 @@ namespace BookRentalShopApp
             this.BtnNew.Name = "BtnNew";
             this.BtnNew.Size = new System.Drawing.Size(75, 23);
             this.BtnNew.TabIndex = 11;
-            this.BtnNew.Text = "신규";
+            this.BtnNew.Text = "New";
             this.BtnNew.UseSelectable = true;
             this.BtnNew.Click += new System.EventHandler(this.BtnNew_Click);
             // 
@@ -361,7 +361,7 @@ namespace BookRentalShopApp
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(75, 23);
             this.BtnDelete.TabIndex = 10;
-            this.BtnDelete.Text = "삭제";
+            this.BtnDelete.Text = "Delete";
             this.BtnDelete.UseSelectable = true;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 

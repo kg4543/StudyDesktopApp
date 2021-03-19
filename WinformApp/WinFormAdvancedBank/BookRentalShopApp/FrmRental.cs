@@ -56,14 +56,6 @@ namespace BookRentalShopApp
             }
         }
 
-        private void BtnReturn_Click(object sender, EventArgs e)
-        {
-            SaveData();
-            RefreshData();
-            ClearInputs();
-            // GetDate를 문자열로 바꿔야함
-        }
-
         private void BtnNew_Click(object sender, EventArgs e)
         {
             ClearInputs();
@@ -116,7 +108,7 @@ namespace BookRentalShopApp
             TxtBookName.Text = selData.Cells[4].Value.ToString();
             DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
             TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
-            CboRentalState.SelectedValue = selData.Cells[7].Value.ToString();
+            CboRentalState.SelectedValue = selData.Cells[7].Value;
 
             TxtIdx.ReadOnly = true;
         }
@@ -148,22 +140,23 @@ namespace BookRentalShopApp
                     if (conn.State == ConnectionState.Closed) conn.Open();
 
                     var query = @"SELECT r.Idx
-                                          ,r.memberIdx
-	                                      ,m.Names as '회원'
-                                          ,r.bookIdx
-	                                      ,b.Names as '도서'
-                                          ,r.rentalDate as '대여일'
-                                          ,r.returnDate as '반납일'
-	                                      ,case r.rentalState 
-		                                    when 'R' then '대여'
-		                                    when 'T' then '반납'
-		                                    else '상태없음' 
-		                                    end as '대여 상태'
-                                      FROM dbo.rentaltbl as r
-	                                     , dbo.membertbl as m
-	                                     , dbo.bookstbl as b
-                                     where r.memberIdx = m.Idx
-                                       and r.bookIdx = b.Idx;";
+                                      ,r.memberIdx
+	                                  ,m.Names as memberName
+                                      ,r.bookIdx
+	                                  ,b.Names as bookName
+                                      ,r.rentalDate
+                                      ,r.returnDate
+	                                  ,r.rentalState
+                                      ,case r.rentalState 
+	                                      when 'R' then '대여중'
+	                                      when 'T' then '반납' 
+	                                      else '상태없음'
+	                                   end as StateDesc
+                                  FROM dbo.rentaltbl as r
+                                 INNER JOIN dbo.membertbl as m
+                                    ON r.memberIdx = m.Idx
+                                 INNER JOIN dbo.bookstbl as b
+                                    ON r.bookIdx = b.Idx;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn); // 가져올 데이터베이스를 변환
                     DataSet ds = new DataSet(); // 가상의 데이터베이스
@@ -217,6 +210,8 @@ namespace BookRentalShopApp
                 using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
                 {
                     if (conn.State == ConnectionState.Closed) conn.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
 
                     var query = "";
 
@@ -236,15 +231,14 @@ namespace BookRentalShopApp
                     else
                     {
                         query = @"UPDATE [dbo].[rentaltbl]
-                                           SET [returnDate] = case @rentalState
-						                                        when 'T' Then GETDATE()
-						                                        when 'R' Then Null
-						                                        end
-                                              ,[rentalState] = 'T'
-                                         WHERE Idx = @Idx";
+                                       SET [returnDate] = case @rentalState
+                                                          when 'T' then GETDATE()
+                                                          when 'R' then null end
+                                          ,[rentalState] = @rentalState
+                                     WHERE Idx = @Idx ";
                     }
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.CommandText = query;
 
                     if (IsNew == true)
                     {
@@ -260,25 +254,17 @@ namespace BookRentalShopApp
                         pRentalDate.Value = DtpRentalDate.Value;
                         cmd.Parameters.Add(pRentalDate);
 
-                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char);
+                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char, 1);
                         pRentalState.Value = CboRentalState.SelectedValue;
                         cmd.Parameters.Add(pRentalState);
                     }
-                    else
+                    else //update일 때만 처리
                     {
-                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char);
+                        var pRentalState = new SqlParameter("@rentalState", SqlDbType.Char, 1);
                         pRentalState.Value = CboRentalState.SelectedValue;
                         cmd.Parameters.Add(pRentalState);
 
-                        var pIdx = new SqlParameter("@Idx", SqlDbType.Date);
-                        pIdx.Value = TxtIdx;
-                        cmd.Parameters.Add(pIdx);
-                    }
-                        
-
-                    if (IsNew == false) //update일 때만 처리
-                    {
-                        var pIdx = new SqlParameter(@"Idx", SqlDbType.Int);
+                        var pIdx = new SqlParameter("@Idx", SqlDbType.Int);
                         pIdx.Value = TxtIdx.Text;
                         cmd.Parameters.Add(pIdx);
                     }
@@ -303,43 +289,7 @@ namespace BookRentalShopApp
         /// 데이터 삭제
         /// Delete Query문
         /// </summary>
-        private void DeleteDate()
-        {
-            try
-            {
-                if (MetroMessageBox.Show(this, "삭제하시겠습니까?", "삭제",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                    {
-                        if (conn.State == ConnectionState.Closed) conn.Open();
-
-                        var query = @"Delete From [dbo].bookstbl
-                                            WHERE [Idx] = @Idx";
-
-                        SqlCommand cmd = new SqlCommand(query, conn);
-
-                        var pIdx = new SqlParameter("@Idx", SqlDbType.NVarChar, 45);
-                        pIdx.Value = TxtIdx.Text;
-                        cmd.Parameters.Add(pIdx);
-
-                        var result = cmd.ExecuteNonQuery();
-                        if (result == 1)
-                        {
-                            MetroMessageBox.Show(this, "삭제 성공", "저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MetroMessageBox.Show(this, "삭제 실패", "저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+      
         private void BtnSearchMember_Click(object sender, EventArgs e)
         {
             FrmMemberPopup frm = new FrmMemberPopup();
