@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainMenu">
 
-    <Grid Margin="10">
+    <Grid Margin="10" Background="{StaticResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
@@ -19,11 +19,46 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="BtnProducts" Grid.Row="1" Grid.Column="0" Content="Products" Margin="10" Height="Auto" Click="BtnProducts_Click"/>
-        <Button x:Name="BtnLiveSupport" Grid.Row="1" Grid.Column="1" Content="Live Support" Margin="10" Height="Auto" Click="BtnLiveSupport_Click"/>
-        <Button x:Name="BtnEmailSupport" Grid.Row="1" Grid.Column="2" Content="Email Support" Margin="10" Height="Auto" Click="BtnEmailSupport_Click"/>
-
-        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+        <Button x:Name="BtnProducts" Grid.Row="1" Grid.Column="0" 
+                Content="Products" FontSize="24"
+                Foreground ="white"
+                Margin="10" Height="Auto" 
+                Click="BtnProducts_Click"
+                Background="{StaticResource accentBrush}"
+                Style="{StaticResource MahApps.Styles.Button.Circle}"/>
+        <Button x:Name="BtnLiveSupport" Grid.Row="1" Grid.Column="1"
+                Content="Live Support" FontSize="24"
+                Margin="10" Height="Auto"
+                Click="BtnLiveSupport_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Fill="{StaticResource MahApps.Brushes.Accent}"/>
+                        <Label Content="{TemplateBinding Content}" 
+                               Foreground ="white"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="BtnEmailSupport" Grid.Row="1" Grid.Column="2" 
+                Content="Email Support" FontSize="24"
+                Margin="10" Height="Auto" 
+                Click="BtnEmailSupport_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Fill="skyBlue"/>
+                        <Label Content="{TemplateBinding Content}" 
+                               Foreground ="white"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
                Content="Advanture Works" FontSize="36" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

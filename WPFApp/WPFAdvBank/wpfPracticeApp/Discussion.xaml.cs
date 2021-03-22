@@ -24,5 +24,11 @@ namespace wpfPracticeApp
         {
             InitializeComponent();
         }
+
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+            Talk talk = new Talk();
+            this.DataContext = talk;
+        }
     }
 }
