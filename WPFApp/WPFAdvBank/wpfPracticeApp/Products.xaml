@@ -1,0 +1,37 @@
+﻿<Page x:Class="wpfPracticeApp.Products"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:wpfPracticeApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Product"
+      Initialized="Page_Initialized">
+
+    <Grid Margin="10">
+        <!--<StackPanel>
+            <ProgressBar Value="{Binding Value, ElementName=SldChanger}" Height="20"/>
+            <TextBlock Text="{Binding Value, ElementName=SldChanger}" TextAlignment="Center" />
+            <Slider x:Name="SldChanger" Minimum="0" Maximum="100" Value="0"/>
+        </StackPanel>-->
+        <ListBox ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <ItemContainerTemplate>
+                    <StackPanel>
+                        <TextBlock Text="Speed"/>
+                        <TextBlock Text="{Binding Path = Speed}"/>
+                        <Slider Value ="{Binding Speed}" Maximum="300"/>
+                        <TextBlock Text="Color"/>
+                        <Border Height="10">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding MainColor}"/>
+                            </Border.Background>
+                        </Border>
+                        <TextBox Text="{Binding MainColor}"/>
+                    </StackPanel>
+                </ItemContainerTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

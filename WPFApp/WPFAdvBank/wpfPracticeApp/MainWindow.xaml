@@ -5,13 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:wpfPracticeApp"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ModernUITestApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Ellipse Width="100" Height="100" Fill="SkyBlue" Stroke="Blue" StrokeThickness="10"/>
-        <Rectangle Width="50" Height="50" Fill="Yellow" Stroke="Black" StrokeThickness="10"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Visible" Source="/wpfPracticeApp;component/MainMenu.xaml" />
     </Grid>
 </mah:MetroWindow>

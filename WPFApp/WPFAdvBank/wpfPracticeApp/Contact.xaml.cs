@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using wpfPracticeApp.BusinessLogic;
 
 namespace wpfPracticeApp
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// Contact.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class Contact : Page
     {
-        public MainWindow()
+        public Contact()
         {
             InitializeComponent();
         }
 
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+            Car car = new Car();
+        }
     }
 }
