@@ -58,7 +58,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
-               Content="Advanture Works" FontSize="36" HorizontalAlignment="Center"/>
+        <Label Grid.Column="0" Grid.ColumnSpan="3" 
+               Content="Advanture Works" FontSize="36" HorizontalAlignment="Center"  Grid.Row="2"/>
     </Grid>
 </Page>
