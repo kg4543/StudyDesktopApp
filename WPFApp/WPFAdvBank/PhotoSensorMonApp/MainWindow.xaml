@@ -1,12 +1,120 @@
-﻿<Window x:Class="PhotoSensorMonApp.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PhotoSensorMonApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
-</Window>
+﻿<mah:MetroWindow   
+    x:Class="PhotoSensorMonApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"               
+    xmlns:local="clr-namespace:PhotoSensorMonApp"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:oxy="http://oxyplot.org/wpf"
+    mc:Ignorable="d"
+    Title="PhotoSensor Monitoring" Height="450" Width="800" Initialized="Window_Initialized">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Monitor(_M)">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconMaterial Kind="MonitorEye" Width="14"/>
+                </MenuItem.Icon>
+                <MenuItem x:Name="MnuBegin" Header="Begin(_B)" 
+                          Click="MnuBegin_Click">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconForkAwesome Kind="PlayCircle" Width="14"/>
+                </MenuItem.Icon>
+            </MenuItem>
+                <MenuItem x:Name="MnuStop" Header="Stop(_S)" 
+                          Click="MnuStop_Click">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconForkAwesome Kind="StopCircle" Width="14"/>
+                </MenuItem.Icon>
+            </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="MnuExit" Header="Exit(_X)" 
+                          Click="MnuExit_Click">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconForkAwesome Kind="SignOut" Width="14"/>
+                </MenuItem.Icon>
+            </MenuItem>
+          </MenuItem>
+            <MenuItem Header="History(_H)">
+                <MenuItem.Icon>
+                    <iconPacks:PackIconMaterial Kind="ChartLine" Width="14"/>
+                </MenuItem.Icon>
+                <MenuItem x:Name="MnuLoad" Header="Load(_L)"
+                          Click="MnuLoad_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconForkAwesome Kind="Refresh" Width="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Background="WhiteSmoke">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <Grid x:Name="GrdRealTime"
+                Grid.Row="0" Grid.Column="0" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"
+                       Content="RealTime Monitoring"
+                       Style="{StaticResource MahApps.Styles.Label}"/>
+
+                <lvc:AngularGauge
+                    x:Name="ChtRealTimeSensor"
+                    Value="{Binding}"
+                    Grid.Row="1" Grid.Column="0"
+                    FromValue="0" ToValue="1023"
+                    TicksForeground="White" 
+                    TicksStep="100"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    SectionsInnerRadius="0.7">
+                    <lvc:AngularGauge.Sections>
+                        <lvc:AngularSection FromValue="0" ToValue="700" Fill="HotPink"/>
+                        <lvc:AngularSection FromValue="700" ToValue="1023" Fill="Indigo"/>
+                    </lvc:AngularGauge.Sections>
+                </lvc:AngularGauge>
+            </Grid>
+
+            <Grid x:Name="GrdHistory"
+                Grid.Row="0" Grid.Column="1" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       Content="Sensoring History"
+                       Style="{StaticResource MahApps.Styles.Label}"/>
+                <!--<d3:Chart Grid.Row="1" Grid.Column="0" BottomTitle="Argument" LeftTitle="Function">
+                    <d3:LineGraph x:Name="ChtLine"
+                                  Description="Simple LineChart" 
+                                  Stroke="DarkBlue" StrokeThickness="3"/>
+                </d3:Chart>-->
+                <!--<lvc:CartesianChart Grid.Row="1" Grid.Column="0">
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Values="{Binding}" DataLabels="True"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip SelectionMode="Auto"></lvc:DefaultTooltip>
+                    </lvc:CartesianChart.DataTooltip>
+                </lvc:CartesianChart>-->
+                <oxy:Plot Grid.Row="1" Grid.Column="0">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries x:Name="HistoryValues"
+                                        Color="DarkBlue" MarkerType="None"
+                                        Title="PhotoSensor" RenderOptions.EdgeMode="Unspecified"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</mah:MetroWindow>
