@@ -24,3 +24,5 @@ C# 데스크톱 앱 개발 학습 리포지토리
 
 ------------------------------------
 ## 📗 도서관리 프로그램
+
+[상세](/WinformApp/WinFormAdvancedBank/BookRentalShopApp/README.md)
