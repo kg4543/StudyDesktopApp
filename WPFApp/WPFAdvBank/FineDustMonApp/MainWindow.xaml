@@ -1,0 +1,38 @@
+﻿<mah:MetroWindow x:Class="FineDustMonApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FineDustMonApp"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconpacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="미세먼지 모니터링앱" 
+        Height="450" Width="800" Icon="Dust.png"
+        Loaded="MetroWindow_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="CboStations"
+                  Grid.Row="0" Grid.Column="0"
+                  Width="200" Margin="5"
+                  SelectedIndex="0" ItemsSource="{Binding}"
+                  mah:TextBoxHelper.Watermark="측정소를 선택하세요"
+                  mah:TextBoxHelper.UseFloatingWatermark="True"
+                  mah:TextBoxHelper.ClearTextButton="True" SelectionChanged="CboStations_SelectionChanged"
+                  >
+        </ComboBox>
+        
+        <DataGrid x:Name="DgrFindDustInfos"
+                  Grid.Row="1" Grid.Column="0"
+                  Width="700" Margin="5"
+                  AutoGenerateColumns="True" SelectionUnit="FullRow"
+                  ItemsSource="{Binding}"
+                  Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
+            
+        </DataGrid>
+    </Grid>
+</mah:MetroWindow>
