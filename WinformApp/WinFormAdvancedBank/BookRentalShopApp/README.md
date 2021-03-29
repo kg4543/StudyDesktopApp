@@ -2,7 +2,7 @@
 
 <kbd>![Main](/Capture/BookRental/Main.PNG "Main")</kbd>
 
-### 1.MainForm 로드 시 로그인창을 불러오기
+### 1. MainForm 로드 시 로그인창을 불러오기
  
  * (showdialog)를 사용하여 로그인을 해야 Main창 활성화
 ```
@@ -75,7 +75,7 @@ if (string.IsNullOrEmpty(strUserId))
                     }
 ```
 
-### 2. Sql Injectrion 
+### 3. Sql Injectrion 
 
 * Sql Injectrion : 입력창에 쿼리문을 입력하여 DB 데이터를 조작
 * 'SqlParameter'를 활용하여 'SqlCommand'를 로드하여 Sql Injectrion 예방
@@ -112,7 +112,7 @@ public static class Common
     }
 ```
 
-### 3. ip주소와 접속시간을 DB에 update
+### 4. ip주소와 접속시간을 DB에 update
 
 ```
 else
@@ -181,7 +181,7 @@ public static class Common
 
 <kbd>![Exit](/Capture/BookRental/Exit.PNG "Exit")</kbd>
 
-메뉴 종료 버튼이나 window 종료 버튼 시 활성화
+### 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
 
 ```
 private void MnuExit_Click(object sender, EventArgs e)
