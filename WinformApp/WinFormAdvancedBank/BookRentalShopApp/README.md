@@ -28,3 +28,8 @@
 <kbd>![Rental](/Capture/BookRental/Rental.PNG "Rental")</kbd>
 
 -------------------------------
+# 종료
+
+<kbd>![Exit](/Capture/BookRental/Exit.PNG "Exit")</kbd>
+
+-------------------------------
