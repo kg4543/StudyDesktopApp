@@ -27,4 +27,9 @@ C# 데스크톱 앱 개발 학습 리포지토리
 ------------------------------------
 ## 📗 도서관리 프로그램
 
+MetroForm을 활용한 깔끔한 UI 구성
+관리자로 로그인을 해서 프로그램 접속
+도서관리 DB를 연동시켜 (도서, 장르, 회원, 대여) 정보를 생성,검색,변경,삭제
+
+
 [바로가기](/WinformApp/WinFormAdvancedBank/BookRentalShopApp/README.md)
