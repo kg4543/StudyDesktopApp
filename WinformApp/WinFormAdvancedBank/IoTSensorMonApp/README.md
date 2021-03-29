@@ -1,4 +1,4 @@
 # IoTSensor
 
-<kbd>![IoT Data](/WinformApp/WinForm_capture/IoTData.PNG "IoT Data")</kbd>
-<kbd>![IoT Data DB](/WinformApp/WinForm_capture/IoTDataDB.PNG "IoT Data DB")</kbd>
+<kbd>![IoT Data](/Capture/WinForm/IoTData.PNG "IoT Data")</kbd>
+<kbd>![IoT Data DB](/Capture/WinForm/IoTDataDB.PNG "IoT Data DB")</kbd>

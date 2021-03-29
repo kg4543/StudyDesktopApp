@@ -21,10 +21,15 @@ C# 데스크톱 앱 개발 학습 리포지토리
 [1. Calculator](/WPFApp/WpfExecutiveBank/WpfCalculatorApp) <br>
 [2. Login](/WPFApp/WPFAdvBank/WPFLoginApp) <br>
 [3. Analog Clock](/WPFApp/WpfExecutiveBank/AnalogClockApp) <br>
-[4. 데이터모니터링](/WPFApp/WPFAdvBank/PhotoSensorMonApp) <br>
+[4. Data Monitoring](/WPFApp/WPFAdvBank/PhotoSensorMonApp) <br>
 [5. OpenAPI_미세먼지](/WPFApp/WPFAdvBank/FineDustMonApp) <br>
 
 ------------------------------------
 ## 📗 도서관리 프로그램
+
+MetroForm을 활용한 깔끔한 UI 구성<br>
+관리자로 로그인을 해서 프로그램 접속<br>
+도서관리 DB를 연동시켜 (도서, 장르, 회원, 대여) 정보를 생성,검색,변경,삭제<br>
+
 
 [바로가기](/WinformApp/WinFormAdvancedBank/BookRentalShopApp/README.md)
