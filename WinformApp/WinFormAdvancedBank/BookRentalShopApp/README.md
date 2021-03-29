@@ -653,6 +653,8 @@ private void SaveData()
 
 ## 5. 회원 및 도서 검색
 
+<kbd>![대여_회원](/Capture/BookRental/대여_회원.PNG "대여_회원")</kbd>
+
 * 전역 변수 SelIdx와 selName을 활용
 * FrmMemvberPopup에서 선택한 DB 값의 idx와 Name을 전역변수에 호출하여 FrmRental에서 사용
 * 도서 검색은 회원 검색과 방식 동일
