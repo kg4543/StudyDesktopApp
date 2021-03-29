@@ -21,6 +21,8 @@ C# 데스크톱 앱 개발 학습 리포지토리
 [1. Calculator](/WPFApp/WpfExecutiveBank/WpfCalculatorApp) <br>
 [2. Login](/WPFApp/WPFAdvBank/WPFLoginApp) <br>
 [3. Analog Clock](/WPFApp/WpfExecutiveBank/AnalogClockApp) <br>
+[4. 데이터모니터링](/WPFApp/WPFAdvBank/PhotoSensorMonApp) <br>
+[5. OpenAPI_미세먼지](/WPFApp/WPFAdvBank/FineDustMonApp) <br>
 
 ------------------------------------
 ## 📗 도서관리 프로그램
