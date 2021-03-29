@@ -2,7 +2,7 @@
 
 <kbd>![Main](/Capture/BookRental/Main.PNG "Main")</kbd>
 
-### 1. MainForm 로드 시 로그인창을 불러오기
+## 1. MainForm 로드 시 로그인창을 불러오기
  
  * (showdialog)를 사용하여 로그인을 해야 Main창 활성화
 ```
@@ -13,7 +13,7 @@ private void FrmMain_Shown(object sender, EventArgs e)
         }
 ```
 
-### 2. 각 메뉴창 클릭 시 해당 창을  로드
+## 2. 각 메뉴창 클릭 시 해당 창을  로드
 
 ```
 private void MnuDivCode_Click(object sender, EventArgs e)
