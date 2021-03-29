@@ -21,7 +21,6 @@ namespace BookRentalShopApp
 
         private void FrmDivCode_Load(object sender, EventArgs e)
         {
-            IsNew = true;
             RefreshData();
             ClearInputs();
         }

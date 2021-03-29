@@ -81,7 +81,6 @@ namespace BookRentalShopApp
                         MetroMessageBox.Show(this, "접속성공", "로그인 성공", MessageBoxButtons.OK,MessageBoxIcon.Information);
                         this.Close();
                     }
-
                 }
             }
             catch (Exception ex)
