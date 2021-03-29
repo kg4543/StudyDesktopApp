@@ -45,7 +45,7 @@ private void MnuDivCode_Click(object sender, EventArgs e)
 
 <kbd>![Login](/Capture/BookRental/Login.PNG "Login")</kbd>
 
-### 1. 입력값의 null 값 체크
+## 1. 입력값의 null 값 체크
 ```
 if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Text))
             {
@@ -54,7 +54,7 @@ if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Tex
             }
 ```
 
-### 2. 회원 DB를 불러와 입력한 ID와 Password 비교
+## 2. 회원 DB를 불러와 입력한 ID와 Password 비교
 
 * strUserID에 DB에서 입력한 UserID와 password가 매칭되는 UserID를 호출시킴
 * 매칭되지 않아 null 값일 경우 로그인 
@@ -77,7 +77,7 @@ if (string.IsNullOrEmpty(strUserId))
                     }
 ```
 
-### 3. Sql Injectrion 
+## 3. Sql Injectrion 
 
 * Sql Injectrion : 입력창에 쿼리문을 입력하여 DB 데이터를 조작
 * 'SqlParameter'를 활용하여 'SqlCommand'를 로드하여 Sql Injectrion 예방
@@ -114,7 +114,7 @@ public static class Common
     }
 ```
 
-### 4. ip주소와 접속시간을 DB에 update
+## 4. ip주소와 접속시간을 DB에 update
 
 ```
 else
@@ -130,7 +130,7 @@ else
                     }
 ```
 
-#### Helper Folder - Common
+### Helper Folder - Common
 
 ```
 public static class Common
@@ -163,7 +163,7 @@ public static class Common
 
 <kbd>![Division](/Capture/BookRental/Division.PNG "Division")</kbd>
 
-### 1. DB 데이터 로드 및 상세 데이터 초기화
+## 1. DB 데이터 로드 및 상세 데이터 초기화
 
 * 데이터 그리드 뷰에서 DB 데이터를 로드
 * 모듈화시켜 데이터에 변동이 생길 시 실시간으로 로드시킴
@@ -214,7 +214,7 @@ private void ClearInputs()
         }
 ```
 
-### 2. 데이터 선택 및 로드
+## 2. 데이터 선택 및 로드
 
 * 상세 입력 데이터에 DB에 선택한 값을 표기
 * isnew = false로 변경하여 '저장' 시 선택된 값이 변경
@@ -233,7 +233,7 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
         }
 ```
 
-### 3. 입력 데이터 값 검증
+## 3. 입력 데이터 값 검증
 
 * 데이터 저장(신규 및 업데이트) 전 필수 값들이 null 값이 아닌지 체크
 
@@ -250,7 +250,7 @@ private bool CheckValidation()
         }
 ```
 
-### 4. 데이터 저장 (신규 생성 및 업데이트)
+## 4. 데이터 저장 (신규 생성 및 업데이트)
 
 * isnew가 true일 경우 'insert'문으로 신규 데이터 생성
 * isnew가 false일 경우 'update'문으로 기존 데이터 변경
@@ -325,7 +325,7 @@ private void SaveDate()
         }
 ```
 
-### 5. 데이터 삭제
+## 5. 데이터 삭제
 
 * 선택된 값을 DB에서 삭제시킴
 
@@ -385,7 +385,7 @@ private void DeleteDate()
 
 <kbd>![Member](/Capture/BookRental/Member.PNG "Member")</kbd>
 
-### 장르관리와 유사
+## 장르관리와 유사
 * DB 로드 및 입력 데이터 초기화
 * DB 값을 선택하여 상세 값 로드
 * 필수 값 입력유무 검증
@@ -419,7 +419,7 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
 
 <kbd>![Book](/Capture/BookRental/Book.PNG "Book")</kbd>
 
-### 장르관리와 유사
+## 장르관리와 유사
 * DB 로드 및 입력 데이터 초기화
 * DB 값을 선택하여 상세 값 로드
 * 필수 값 입력유무 검증
@@ -457,7 +457,7 @@ private void AsignToControls(DataGridViewRow selData)
 
 <kbd>![Rental](/Capture/BookRental/Rental.PNG "Rental")</kbd>
 
-### 1. DB 데이터 로드 및 입력 데이터 초기화
+## 1. DB 데이터 로드 및 입력 데이터 초기화
 
 * Outer Join을 통해 대여 DB 로드
 * 대여 상태(rentalState) 값(R,T)을 (대여,반납)으로 로드
@@ -554,7 +554,7 @@ private void ClearInputs()
             DtpRentalDate.Enabled = true;
         }
 ```
-### 2. 데이터 선택 및 로드
+## 2. 데이터 선택 및 로드
 
 * 검색 창 및 날짜  선택 창 비활성화
 
@@ -589,7 +589,7 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
         }
 ```
 
-### 3. 데이터 값 검증
+## 3. 데이터 값 검증
 
 ```
 private bool CheckValidation()
@@ -605,7 +605,7 @@ private bool CheckValidation()
         }
 ```
 
-### 4. 데이터 저장
+## 4. 데이터 저장
 
 * 신규일 때는 대여
 * 기존 데이터일 때는 반납
@@ -651,7 +651,7 @@ private void SaveData()
         }
 ```
 
-### 5. 회원 및 도서 검색
+## 5. 회원 및 도서 검색
 
 * 전역 변수 SelIdx와 selName을 활용
 * FrmMemvberPopup에서 선택한 DB 값의 idx와 Name을 전역변수에 호출하여 FrmRental에서 사용
@@ -711,7 +711,7 @@ private void BtnSelect_Click(object sender, EventArgs e)
 
 <kbd>![Exit](/Capture/BookRental/Exit.PNG "Exit")</kbd>
 
-### 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
+## 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
 
 ```
 private void MnuExit_Click(object sender, EventArgs e)
