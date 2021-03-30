@@ -97,7 +97,7 @@ if (string.IsNullOrEmpty(strUserId))
 
 * Sql Injection을 예방하기위헤 ',--,; 을 특수문자 및 빈칸으로 변경 
 
-#### Helper Folder - Common
+### Helper Folder - Common
 ```
 public static class Common
     {
