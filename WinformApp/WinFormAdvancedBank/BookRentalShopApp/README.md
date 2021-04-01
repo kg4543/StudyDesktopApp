@@ -2,7 +2,7 @@
 
 <kbd>![Main](/Capture/BookRental/Main.PNG "Main")</kbd>
 
-### 1. MainForm 로드 시 로그인창을 불러오기
+## 1. MainForm 로드 시 로그인창을 불러오기
  
  * (showdialog)를 사용하여 로그인을 해야 Main창 활성화
 ```
@@ -13,7 +13,7 @@ private void FrmMain_Shown(object sender, EventArgs e)
         }
 ```
 
-### 2. 각 메뉴창 클릭 시 해당 창을  로드
+## 2. 각 메뉴창 클릭 시 해당 창을  로드
 
 ```
 private void MnuDivCode_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ private void MnuDivCode_Click(object sender, EventArgs e)
 
 <kbd>![Login](/Capture/BookRental/Login.PNG "Login")</kbd>
 
-### 1. 입력값의 null 값 체크
+## 1. 입력값의 null 값 체크
 ```
 if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Text))
             {
@@ -54,7 +54,7 @@ if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Tex
             }
 ```
 
-### 2. 회원 DB를 불러와 입력한 ID와 Password 비교
+## 2. 회원 DB를 불러와 입력한 ID와 Password 비교
 
 * strUserID에 DB에서 입력한 UserID와 password가 매칭되는 UserID를 호출시킴
 * 매칭되지 않아 null 값일 경우 로그인 
@@ -77,7 +77,7 @@ if (string.IsNullOrEmpty(strUserId))
                     }
 ```
 
-### 3. Sql Injectrion 
+## 3. Sql Injectrion 
 
 * Sql Injectrion : 입력창에 쿼리문을 입력하여 DB 데이터를 조작
 * 'SqlParameter'를 활용하여 'SqlCommand'를 로드하여 Sql Injectrion 예방
@@ -97,7 +97,7 @@ if (string.IsNullOrEmpty(strUserId))
 
 * Sql Injection을 예방하기위헤 ',--,; 을 특수문자 및 빈칸으로 변경 
 
-#### Helper Folder - Common
+### Helper Folder - Common
 ```
 public static class Common
     {
@@ -114,7 +114,7 @@ public static class Common
     }
 ```
 
-### 4. ip주소와 접속시간을 DB에 update
+## 4. ip주소와 접속시간을 DB에 update
 
 ```
 else
@@ -130,7 +130,7 @@ else
                     }
 ```
 
-#### Helper Folder - Common
+### Helper Folder - Common
 
 ```
 public static class Common
@@ -163,7 +163,7 @@ public static class Common
 
 <kbd>![Division](/Capture/BookRental/Division.PNG "Division")</kbd>
 
-### 1. DB 데이터 로드 및 상세 데이터 
+## 1. DB 데이터 로드 및 상세 데이터 초기화
 
 * 데이터 그리드 뷰에서 DB 데이터를 로드
 * 모듈화시켜 데이터에 변동이 생길 시 실시간으로 로드시킴
@@ -214,7 +214,7 @@ private void ClearInputs()
         }
 ```
 
-### 2. 데이터 선택 및 로드
+## 2. 데이터 선택 및 로드
 
 * 상세 입력 데이터에 DB에 선택한 값을 표기
 * isnew = false로 변경하여 '저장' 시 선택된 값이 변경
@@ -233,7 +233,7 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
         }
 ```
 
-### 3. 입력 데이터 값 검증
+## 3. 입력 데이터 값 검증
 
 * 데이터 저장(신규 및 업데이트) 전 필수 값들이 null 값이 아닌지 체크
 
@@ -250,7 +250,7 @@ private bool CheckValidation()
         }
 ```
 
-### 4. 데이터 저장 (신규 생성 및 업데이트)
+## 4. 데이터 저장 (신규 생성 및 업데이트)
 
 * isnew가 true일 경우 'insert'문으로 신규 데이터 생성
 * isnew가 false일 경우 'update'문으로 기존 데이터 변경
@@ -325,7 +325,7 @@ private void SaveDate()
         }
 ```
 
-### 5. 데이터 삭제
+## 5. 데이터 삭제
 
 * 선택된 값을 DB에서 삭제시킴
 
@@ -385,7 +385,7 @@ private void DeleteDate()
 
 <kbd>![Member](/Capture/BookRental/Member.PNG "Member")</kbd>
 
-### 장르관리와 유사
+## 장르관리와 유사
 * DB 로드 및 입력 데이터 초기화
 * DB 값을 선택하여 상세 값 로드
 * 필수 값 입력유무 검증
@@ -419,7 +419,7 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
 
 <kbd>![Book](/Capture/BookRental/Book.PNG "Book")</kbd>
 
-### 장르관리와 유사
+## 장르관리와 유사
 * DB 로드 및 입력 데이터 초기화
 * DB 값을 선택하여 상세 값 로드
 * 필수 값 입력유무 검증
@@ -457,12 +457,263 @@ private void AsignToControls(DataGridViewRow selData)
 
 <kbd>![Rental](/Capture/BookRental/Rental.PNG "Rental")</kbd>
 
+## 1. DB 데이터 로드 및 입력 데이터 초기화
+
+* Outer Join을 통해 대여 DB 로드
+* 대여 상태(rentalState) 값(R,T)을 (대여,반납)으로 로드
+* Idx값을 수정하지 못 하도록 readonly로 고정
+* 입력 데이터를 초기화하면서 회원과 도서를 검색할 수 있도록 검색 버튼  
+  
+```
+private void FrmDivCode_Load(object sender, EventArgs e)
+        {
+            IsNew = true; //신규인지 구분(초기화)
+            InitCboData(); // 콤보박스 들어가는 데이터 조회
+            RefreshData(); //테이블 조회
+            ClearInputs();
+
+            DtpRentalDate.CustomFormat = "yyyy-MM-dd";
+            DtpRentalDate.Format = DateTimePickerFormat.Custom;
+        }
+        
+ private void InitCboData() 
+        {
+            try
+            {
+                var temp = new Dictionary<string, string>();
+                temp.Add("R", "대여");
+                temp.Add("T", "반납");
+
+                CboRentalState.DataSource = new BindingSource(temp, null);
+                CboRentalState.DisplayMember = "Value";
+                CboRentalState.ValueMember = "Key";
+                CboRentalState.SelectedIndex = -1;
+            }
+            catch { }
+        }
+ 
+ private void RefreshData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+
+                    var query = @"SELECT r.Idx
+                                      ,r.memberIdx
+	                                  ,m.Names as memberName
+                                      ,r.bookIdx
+	                                  ,b.Names as bookName
+                                      ,r.rentalDate
+                                      ,r.returnDate
+	                                  ,r.rentalState
+                                      ,case r.rentalState 
+	                                      when 'R' then '대여중'
+	                                      when 'T' then '반납' 
+	                                      else '상태없음'
+	                                   end as StateDesc
+                                  FROM dbo.rentaltbl as r
+                                 INNER JOIN dbo.membertbl as m
+                                    ON r.memberIdx = m.Idx
+                                 INNER JOIN dbo.bookstbl as b
+                                    ON r.bookIdx = b.Idx;";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn); // 가져올 데이터베이스를 변환
+                    DataSet ds = new DataSet(); // 가상의 데이터베이스
+                    adapter.Fill(ds, "rentaltbl");
+
+                    DgvData.DataSource = ds;
+                    DgvData.DataMember = "rentaltbl";
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            var column = DgvData.Columns[1]; //MemberIdx column
+            column.Visible = false;
+            column = DgvData.Columns[3]; //BookIdx column
+            column.Visible = false;
+         }
+         
+private void ClearInputs()
+        {
+            selMemberIdx = 0;
+            selMemberName = "";
+            selBookIdx = 0;
+            selBookName = "";
+            TxtBookName.Text = TxtMemberName.Text = "";
+            TxtIdx.Text = "";
+            DtpRentalDate.Value = DateTime.Now;
+            TxtReturnDate.Text = "";
+            CboRentalState.SelectedIndex = -1;
+
+            IsNew = true;
+            BtnSearchMember.Enabled = BtnSearchBook.Enabled = true;
+            DtpRentalDate.Enabled = true;
+        }
+```
+## 2. 데이터 선택 및 로드
+
+* 검색 창 및 날짜  선택 창 비활성화
+
+```
+private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1) //선택된 값이 존재하면
+            {
+                var selData = DgvData.Rows[e.RowIndex];
+                AsignToControls(selData);
+                
+                IsNew = false;
+                BtnSearchMember.Enabled = BtnSearchBook.Enabled = false;
+                DtpRentalDate.Enabled = false;
+            }
+        }
+ 
+ private void AsignToControls(DataGridViewRow selData)
+        {
+            TxtIdx.Text = selData.Cells[0].Value.ToString();
+            selMemberIdx = (int)selData.Cells[1].Value;
+            Debug.WriteLine($">>>> selMemberIdx : {selMemberIdx}");
+            TxtMemberName.Text = selData.Cells[2].Value.ToString();
+            selBookIdx = (int)selData.Cells[3].Value;
+            Debug.WriteLine($">>>> selBookIdx : {selBookIdx}");
+            TxtBookName.Text = selData.Cells[4].Value.ToString();
+            DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
+            TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
+            CboRentalState.SelectedValue = selData.Cells[7].Value;
+
+            TxtIdx.ReadOnly = true;
+        }
+```
+
+## 3. 데이터 값 검증
+
+```
+private bool CheckValidation()
+        {
+            if ( string.IsNullOrEmpty(TxtMemberName.Text) || string.IsNullOrEmpty(TxtBookName.Text) ||
+                DtpRentalDate.Value == null)
+            {
+                MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+```
+
+## 4. 데이터 저장
+
+* 신규일 때는 대여
+* 기존 데이터일 때는 반납
+* Isnew로 구분
+
+```
+private void SaveData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    var query = "";
+                    
+                    if (IsNew == true)
+                    {
+                        query = @"INSERT into [dbo].[rentaltbl]
+                                                   ([memberIdx]
+                                                   ,[bookIdx]
+                                                   ,[rentalDate]
+                                                   ,[rentalState])
+                                             VALUES
+                                                   (@memberIdx
+                                                   ,@bookIdx
+                                                   ,@rentalDate
+                                                   ,@rentalState)";
+                    }
+                    else
+                    {
+                        query = @"UPDATE [dbo].[rentaltbl]
+                                       SET [returnDate] = case @rentalState
+                                                          when 'T' then GETDATE()
+                                                          when 'R' then null end
+                                          ,[rentalState] = @rentalState
+                                     WHERE Idx = @Idx ";
+                    }
+
+                    cmd.CommandText = query;
+         ......
+        }
+```
+
+## 5. 회원 및 도서 검색
+
+<kbd>![대여_회원](/Capture/BookRental/대여_회원.PNG "대여_회원")</kbd>
+
+* 전역 변수 SelIdx와 selName을 활용
+* FrmMemvberPopup에서 선택한 DB 값의 idx와 Name을 전역변수에 호출하여 FrmRental에서 사용
+* 도서 검색은 회원 검색과 방식 동일
+
+```
+private void BtnSearchMember_Click(object sender, EventArgs e)
+        {
+            FrmMemberPopup frm = new FrmMemberPopup();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                selMemberIdx = frm.SelIdx;
+                TxtMemberName.Text = selMemberName = frm.SelName;
+            }
+        }
+
+public partial class FrmMemberPopup : MetroForm
+ {
+ 
+  public int SelIdx { get; set; }
+
+  public string SelName { get; set; }
+        
+    private void FrmDivCode_Load(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+        private void RefreshData()
+        {
+         ......
+        }
+
+private void BtnSelect_Click(object sender, EventArgs e)
+        {
+            if (DgvData.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "데이터를 선택하세요!", "경고",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (DgvData.SelectedRows.Count > 1)
+            {
+                MetroMessageBox.Show(this, "데이터를 한 개만 선택하세요!", "경고",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                SelIdx = (int)DgvData.SelectedRows[0].Cells[0].Value;
+                SelName = DgvData.SelectedRows[0].Cells[1].Value.ToString();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+```
 -------------------------------
 # 종료
 
 <kbd>![Exit](/Capture/BookRental/Exit.PNG "Exit")</kbd>
 
-### 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
+## 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
 
 ```
 private void MnuExit_Click(object sender, EventArgs e)
