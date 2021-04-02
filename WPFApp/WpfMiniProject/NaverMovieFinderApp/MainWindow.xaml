@@ -66,8 +66,8 @@
                 <DataGridTextColumn Binding = "{Binding Title}" Header="영화 제목" FontWeight="Bold" IsReadOnly="True"/>
                 <DataGridTextColumn Binding = "{Binding SubTitle}" Header="제목 (원어)" IsReadOnly="True"/>
                 <DataGridTextColumn Binding = "{Binding PubDate}" Header="상영년도" IsReadOnly="True"/>
-                <DataGridTextColumn Binding = "{Binding Director}" Header="감독" IsReadOnly="True"/>
-                <DataGridTextColumn Binding = "{Binding Actor}" Header="배우" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding Director}" Header="감독" IsReadOnly="True" Width="200"/>
+                <DataGridTextColumn Binding = "{Binding Actor}" Header="배우" IsReadOnly="True" Width="250"/>
                 <DataGridTextColumn Binding = "{Binding UserRating}" Header="평점" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
