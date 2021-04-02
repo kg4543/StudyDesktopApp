@@ -41,7 +41,7 @@
                      KeyDown="TxtMovieName_KeyDown"/>
             <Button x:Name="BtnSearch" Content="검색"
                     Width="100" Margin="5 ,10" FontSize="14" 
-                    Background="DeepPink" Foreground="AliceBlue"
+                    Background="Magenta" Foreground="AliceBlue"
                     Click="BtnSearch_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
@@ -54,19 +54,35 @@
             </Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" Grid.Column="1" AutoGenerateColumns="True" Margin="10"
-                  Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
-                
+        <DataGrid Name="GrdData"
+                  Grid.Row="2" Grid.Column="1" 
+                  AutoGenerateColumns="False" SelectionUnit="FullRow"
+                  GridLinesVisibility="Vertical"
+                  Margin="10"
+                  Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
+                  ItemsSource="{Binding}"
+                  SelectedCellsChanged="DataGrid_SelectedCellsChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding = "{Binding Title}" Header="영화 제목" FontWeight="Bold" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding SubTitle}" Header="제목 (원어)" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding PubDate}" Header="상영년도" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding Director}" Header="감독" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding Actor}" Header="배우" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding UserRating}" Header="평점" IsReadOnly="True"/>
+            </DataGrid.Columns>
         </DataGrid>
 
         <Image x:Name="ImgPoster"
                Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"
-               Margin="10" Source="No_Picture.jpg"></Image>
+               Margin="10" Source="No_Picture.jpg">
+        </Image>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" HorizontalAlignment="Stretch">
             <Button x:Name="BtnAddWatchList" Content="즐겨찾기 추가" 
                     Margin="5, 10" Width="130" FontSize="12"
-                    Background="Violet" Foreground="AliceBlue">
+                    Background="Violet" Foreground="AliceBlue"
+                    Click="BtnAddWatchList_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -76,9 +92,22 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
-            <Button x:Name="BtnViewWatchList" Content="즐겨찾기 보기" 
+            <Button x:Name="BtnDeleteWatchList" Content= "즐겨찾기 삭제" 
                     Margin="5, 10" Width="130" FontSize="12"
                     Background="Orchid" Foreground="AliceBlue">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="5,0"/>
+                            <iconPacks:PackIconForkAwesome Kind="Trash" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            <Button x:Name="BtnViewWatchList" Content="즐겨찾기 보기" 
+                    Margin="5, 10" Width="130" FontSize="12"
+                    Background="HotPink" Foreground="AliceBlue"
+                    Click="BtnViewWatchList_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -90,12 +119,24 @@
             </Button>
             <Button x:Name="BtnWatchTrailer" Content= "예고편 보기" 
                     Margin="5, 10" Width="130" FontSize="12"
-                    Background="HotPink" Foreground="AliceBlue">
+                    Background="DeepPink" Foreground="AliceBlue">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" Margin="5,0"/>
                             <iconPacks:PackIconFontAwesome Kind="PlaySolid" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            <Button x:Name="NaverMovieLink" Content= "네이버 영화" 
+                    Margin="5, 10" Width="130" FontSize="12"
+                    Background="MediumOrchid" Foreground="AliceBlue">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Margin="5,0"/>
+                            <iconPacks:PackIconFontAwesome Kind="LinkSolid" />
                         </StackPanel>
                     </DataTemplate>
                 </Button.ContentTemplate>
