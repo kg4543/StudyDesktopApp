@@ -8,7 +8,8 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:NaverMovieFinderApp"
     mc:Ignorable="d"
-    Title="NaverMovieFinder" Height="500" Width="1024">
+    Title="NaverMovieFinder" Height="500" Width="1024"
+    Loaded="MetroWindow_Loaded">
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
             <iconPacks:PackIconFontAwesome Kind="YoutubeSquareBrands" Margin="5,7,0,0" Foreground="White"/>
@@ -60,7 +61,7 @@
                   GridLinesVisibility="Vertical"
                   Margin="10"
                   Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
-                  ItemsSource="{Binding}"
+                  ItemsSource="{Binding}" IsReadOnly="True"
                   SelectedCellsChanged="DataGrid_SelectedCellsChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding = "{Binding Title}" Header="영화 제목" FontWeight="Bold" IsReadOnly="True"/>
@@ -68,7 +69,7 @@
                 <DataGridTextColumn Binding = "{Binding PubDate}" Header="상영년도" IsReadOnly="True"/>
                 <DataGridTextColumn Binding = "{Binding Director}" Header="감독" IsReadOnly="True" Width="200"/>
                 <DataGridTextColumn Binding = "{Binding Actor}" Header="배우" IsReadOnly="True" Width="250"/>
-                <DataGridTextColumn Binding = "{Binding UserRating}" Header="평점" IsReadOnly="True"/>
+                <DataGridTextColumn Binding = "{Binding UserRating}" Header="네티즌 평점" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -94,7 +95,8 @@
             </Button>
             <Button x:Name="BtnDeleteWatchList" Content= "즐겨찾기 삭제" 
                     Margin="5, 10" Width="130" FontSize="12"
-                    Background="Orchid" Foreground="AliceBlue">
+                    Background="Orchid" Foreground="AliceBlue"
+                    Click="BtnDeleteWatchList_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -119,7 +121,8 @@
             </Button>
             <Button x:Name="BtnWatchTrailer" Content= "예고편 보기" 
                     Margin="5, 10" Width="130" FontSize="12"
-                    Background="DeepPink" Foreground="AliceBlue">
+                    Background="DeepPink" Foreground="AliceBlue"
+                    Click="BtnWatchTrailer_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -131,7 +134,8 @@
             </Button>
             <Button x:Name="NaverMovieLink" Content= "네이버 영화" 
                     Margin="5, 10" Width="130" FontSize="12"
-                    Background="MediumOrchid" Foreground="AliceBlue">
+                    Background="MediumOrchid" Foreground="AliceBlue"
+                    Click="NaverMovieLink_Click">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
