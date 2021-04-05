@@ -36,3 +36,5 @@ MetroForm을 활용한 깔끔한 UI 구성<br>
 
 ------------------------------------
 ## 📔 MovieFinder
+
+[바로가기](/WPFApp/WpfMiniProject/README.md)
