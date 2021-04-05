@@ -32,9 +32,9 @@ MetroForm을 활용한 깔끔한 UI 구성<br>
 도서관리 DB를 연동시켜 (도서, 장르, 회원, 대여) 정보를 생성,검색,변경,삭제<br>
 
 
-[바로가기](/WinformApp/WinFormAdvancedBank/BookRentalShopApp/README.md)
+[바로가기](/WinformApp/WinFormAdvancedBank/BookRentalShopApp)
 
 ------------------------------------
 ## 📔 MovieFinder
 
-[바로가기](/WPFApp/WpfMiniProject/README.md)
+[바로가기](/WPFApp/WpfMiniProject)
