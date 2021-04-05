@@ -31,7 +31,7 @@ private void FrmMain_Load(object sender, EventArgs e)
         }
 ```
 
-### 2. List Item 선택
+## 2. List Item 선택
 
 - 선택한 object를 ListBox 형태로 받아서 저장
 - 저장한 리스트에서 선택된 값의 index 및 값을 표기
