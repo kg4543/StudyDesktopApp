@@ -5,7 +5,7 @@
 ## 1. List 작성
 
 - 디자인 상에서 '항목편집' 기능을 활용하여 리스트 편집
-- Listview.Items.Add(); 를 활용하여 리스트 항목 추가
+- Listview.Items.Add(); 를 활용하여 리스트 항목 추가 (using System.Collections.Generic;)
 - List<string>를 활용하여 리스트 배열 생성
 
 ```
