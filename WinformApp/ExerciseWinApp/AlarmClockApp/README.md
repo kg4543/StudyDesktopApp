@@ -6,7 +6,9 @@
 ## 1. 날짜 & 시간 표기
 
 - DateTimePicker를 활용하여 날짜 및 시간을 표현
-
+- DateTimePickerFormat.Custom;을 활용하여 알람시간 디자인
+- WindowsMediaPlayer mediaPlayer;를 활용하여 알람소리 설정 (using WMPLib;)
+- MyTimer.Tick으로 시간경과 측정
 
 ```
   private DateTime SetDay;
