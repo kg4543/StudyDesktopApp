@@ -38,6 +38,7 @@ MetroForm을 활용한 깔끔한 UI 구성<br>
 
 MetroForm을 활용한 깔끔한 UI 구성<br>
 NaverOpenApi를 활용하여 영화 정보를 표기<br>
+DB를 활용하여 영화를 즐겨찾기에 등록 및 열람<br>
 YoutubeOpenApi를 활용하여 영상 플레이
 
 [바로가기](/WPFApp/WpfMiniProject)
