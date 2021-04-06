@@ -30,7 +30,6 @@ namespace MyNotePadApp
         private void InitializeComponent()
         {
             this.MenuScript = new System.Windows.Forms.MenuStrip();
-            this.TxtMain = new System.Windows.Forms.RichTextBox();
             this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuNewFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +40,7 @@ namespace MyNotePadApp
             this.MnuPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.도움말HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.TxtMain = new System.Windows.Forms.RichTextBox();
             this.DlgOpenText = new System.Windows.Forms.OpenFileDialog();
             this.DlgSaveText = new System.Windows.Forms.SaveFileDialog();
             this.MenuScript.SuspendLayout();
@@ -57,17 +57,6 @@ namespace MyNotePadApp
             this.MenuScript.Size = new System.Drawing.Size(800, 24);
             this.MenuScript.TabIndex = 0;
             this.MenuScript.Text = "menuStrip1";
-            // 
-            // TxtMain
-            // 
-            this.TxtMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtMain.Location = new System.Drawing.Point(0, 24);
-            this.TxtMain.Name = "TxtMain";
-            this.TxtMain.Size = new System.Drawing.Size(800, 426);
-            this.TxtMain.TabIndex = 1;
-            this.TxtMain.Text = "";
-            this.TxtMain.TextChanged += new System.EventHandler(this.TxtMain_TextChanged);
             // 
             // 파일ToolStripMenuItem
             // 
@@ -120,14 +109,14 @@ namespace MyNotePadApp
             // MnuCopy
             // 
             this.MnuCopy.Name = "MnuCopy";
-            this.MnuCopy.Size = new System.Drawing.Size(180, 22);
+            this.MnuCopy.Size = new System.Drawing.Size(137, 22);
             this.MnuCopy.Text = "복사(&C)";
             this.MnuCopy.Click += new System.EventHandler(this.MnuCopy_Click);
             // 
             // MnuPaste
             // 
             this.MnuPaste.Name = "MnuPaste";
-            this.MnuPaste.Size = new System.Drawing.Size(180, 22);
+            this.MnuPaste.Size = new System.Drawing.Size(137, 22);
             this.MnuPaste.Text = "붙여넣기(&P)";
             this.MnuPaste.Click += new System.EventHandler(this.MnuPaste_Click);
             // 
@@ -142,9 +131,20 @@ namespace MyNotePadApp
             // MnuAbout
             // 
             this.MnuAbout.Name = "MnuAbout";
-            this.MnuAbout.Size = new System.Drawing.Size(180, 22);
+            this.MnuAbout.Size = new System.Drawing.Size(162, 22);
             this.MnuAbout.Text = "프로그램정보(&A)";
             this.MnuAbout.Click += new System.EventHandler(this.MnuAbout_Click);
+            // 
+            // TxtMain
+            // 
+            this.TxtMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtMain.Location = new System.Drawing.Point(0, 24);
+            this.TxtMain.Name = "TxtMain";
+            this.TxtMain.Size = new System.Drawing.Size(800, 426);
+            this.TxtMain.TabIndex = 1;
+            this.TxtMain.Text = "";
+            this.TxtMain.TextChanged += new System.EventHandler(this.TxtMain_TextChanged);
             // 
             // DlgOpenText
             // 
