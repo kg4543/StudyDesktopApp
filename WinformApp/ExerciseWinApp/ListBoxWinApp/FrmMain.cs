@@ -73,7 +73,6 @@ namespace ListBoxWinApp
             LsbGDPCountry.SelectedIndex =
             LsbGoodCity.SelectedIndex =
             LsbHappyCountry.SelectedIndex = -1;
-
         }
     }
 }

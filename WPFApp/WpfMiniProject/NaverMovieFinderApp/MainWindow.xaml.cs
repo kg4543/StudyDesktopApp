@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using NaverMovieFinderApp.Model;
 using Newtonsoft.Json.Linq;
 using System;
@@ -119,7 +120,7 @@ namespace NaverMovieFinderApp
                 else
                 {
                     ImgPoster.Source = new BitmapImage(new Uri(movie.Image, UriKind.RelativeOrAbsolute));
-                    ImgPoster.Stretch = System.Windows.Media.Stretch.Uniform;
+                    //ImgPoster.Stretch = System.Windows.Media.Stretch.Uniform;
                 }
             }
 
@@ -329,6 +330,22 @@ namespace NaverMovieFinderApp
             trailerWindow.Owner = this;
             trailerWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             trailerWindow.ShowDialog();
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            /*var result = Commons.ShowMessageAsync("종료", "프로그램을 종료하시겠습니까?",MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                e.Cancel = true;
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                e.Cancel = false;
+                return;
+            }*/
         }
     }
 }

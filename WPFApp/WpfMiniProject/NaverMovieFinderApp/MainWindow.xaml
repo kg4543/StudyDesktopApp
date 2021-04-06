@@ -9,7 +9,8 @@
     xmlns:local="clr-namespace:NaverMovieFinderApp"
     mc:Ignorable="d"
     Title="NaverMovieFinder" Height="500" Width="1024"
-    Loaded="MetroWindow_Loaded">
+    Loaded="MetroWindow_Loaded"
+    Closing="MetroWindow_Closing">
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
             <iconPacks:PackIconFontAwesome Kind="YoutubeSquareBrands" Margin="5,7,0,0" Foreground="White"/>
