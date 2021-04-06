@@ -31,10 +31,14 @@ MetroForm을 활용한 깔끔한 UI 구성<br>
 관리자로 로그인을 해서 프로그램 접속<br>
 도서관리 DB를 연동시켜 (도서, 장르, 회원, 대여) 정보를 생성,검색,변경,삭제<br>
 
-
 [바로가기](/WinformApp/WinFormAdvancedBank/BookRentalShopApp)
 
 ------------------------------------
 ## 📔 MovieFinder
+
+MetroForm을 활용한 깔끔한 UI 구성<br>
+NaverOpenApi를 활용하여 영화 정보를 표기<br>
+DB를 활용하여 영화를 즐겨찾기에 등록 및 열람<br>
+YoutubeOpenApi를 활용하여 영상 플레이
 
 [바로가기](/WPFApp/WpfMiniProject)
