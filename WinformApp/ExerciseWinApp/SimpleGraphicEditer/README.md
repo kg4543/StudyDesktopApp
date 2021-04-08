@@ -8,7 +8,7 @@
 * DrawMode 객체를 설정
 * DrawMode의 객체를 선택하여 그리기 모드 설정 
 * 그릴 때 필요한 식별자 선언
-* 
+* 화면 로드 시 기본 컬러 및 DrawMode 선언
 ```
 enum DrawMode
     {
