@@ -48,7 +48,7 @@ namespace BookRentalShopApp
             this.MnuExit});
             this.menuStrip1.Location = new System.Drawing.Point(20, 60);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(960, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1140, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -67,33 +67,33 @@ namespace BookRentalShopApp
             // MnuDivCode
             // 
             this.MnuDivCode.Name = "MnuDivCode";
-            this.MnuDivCode.Size = new System.Drawing.Size(180, 22);
+            this.MnuDivCode.Size = new System.Drawing.Size(114, 22);
             this.MnuDivCode.Text = "장르(&C)";
             this.MnuDivCode.Click += new System.EventHandler(this.MnuDivCode_Click);
             // 
             // MnuMember
             // 
             this.MnuMember.Name = "MnuMember";
-            this.MnuMember.Size = new System.Drawing.Size(180, 22);
+            this.MnuMember.Size = new System.Drawing.Size(114, 22);
             this.MnuMember.Text = "회원(&P)";
             this.MnuMember.Click += new System.EventHandler(this.MnuMember_Click);
             // 
             // MnuBooks
             // 
             this.MnuBooks.Name = "MnuBooks";
-            this.MnuBooks.Size = new System.Drawing.Size(180, 22);
+            this.MnuBooks.Size = new System.Drawing.Size(114, 22);
             this.MnuBooks.Text = "도서(&B)";
             this.MnuBooks.Click += new System.EventHandler(this.MnuBooks_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 6);
             // 
             // MnuRental
             // 
             this.MnuRental.Name = "MnuRental";
-            this.MnuRental.Size = new System.Drawing.Size(180, 22);
+            this.MnuRental.Size = new System.Drawing.Size(114, 22);
             this.MnuRental.Text = "대여(&R)";
             this.MnuRental.Click += new System.EventHandler(this.MnuRental_Click);
             // 
@@ -108,7 +108,7 @@ namespace BookRentalShopApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.ClientSize = new System.Drawing.Size(1180, 635);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
