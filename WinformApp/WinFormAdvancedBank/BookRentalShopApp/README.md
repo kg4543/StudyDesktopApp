@@ -5,39 +5,39 @@
 ## 1. MainForm 로드 시 로그인창을 불러오기
  
  * (showdialog)를 사용하여 로그인을 해야 Main창 활성화
-```
+```C#
 private void FrmMain_Shown(object sender, EventArgs e)
-        {
-            FrmLogin frm = new FrmLogin();
-            frm.ShowDialog();
-        }
+{
+    FrmLogin frm = new FrmLogin();
+    frm.ShowDialog();
+}
 ```
 
 ## 2. 각 메뉴창 클릭 시 해당 창을  로드
 
-```
+```C#
 private void MnuDivCode_Click(object sender, EventArgs e)
-        {
-            FrmDivCode frm = new FrmDivCode();
-            InitChildForm(frm, "장르 관리");
-        }
+{
+    FrmDivCode frm = new FrmDivCode();
+    InitChildForm(frm, "장르 관리");
+}
 
-        private void MnuMember_Click(object sender, EventArgs e)
-        {
-            FrmMember frm = new FrmMember();
-            InitChildForm(frm, "회원관리");
-        }
+private void MnuMember_Click(object sender, EventArgs e)
+{
+    FrmMember frm = new FrmMember();
+    InitChildForm(frm, "회원관리");
+}
 
-        private void MnuBooks_Click(object sender, EventArgs e)
-        {
-            FrmBooks frm = new FrmBooks();
-            InitChildForm(frm, "도서 관리");
-        }
-        private void MnuRental_Click(object sender, EventArgs e)
-        {
-            FrmRental frm = new FrmRental();
-            InitChildForm(frm, "대여 관리");
-        }
+private void MnuBooks_Click(object sender, EventArgs e)
+{
+    FrmBooks frm = new FrmBooks();
+    InitChildForm(frm, "도서 관리");
+}
+private void MnuRental_Click(object sender, EventArgs e)
+{
+    FrmRental frm = new FrmRental();
+    InitChildForm(frm, "대여 관리");
+}
 ```
 
 -------------------------------
@@ -46,12 +46,12 @@ private void MnuDivCode_Click(object sender, EventArgs e)
 <kbd>![Login](/Capture/BookRental/Login.PNG "Login")</kbd>
 
 ## 1. 입력값의 null 값 체크
-```
+```C#
 if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Text))
-            {
-                MetroMessageBox.Show(this,"아이디/패스워드를 입력하세요!","오류",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                return;
-            }
+    {
+	MetroMessageBox.Show(this,"아이디/패스워드를 입력하세요!","오류",MessageBoxButtons.OK,MessageBoxIcon.Error);
+	return;
+    }
 ```
 
 ## 2. 회원 DB를 불러와 입력한 ID와 Password 비교
@@ -60,7 +60,7 @@ if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Tex
 * 매칭되지 않아 null 값일 경우 로그인 
 * query문 where 절에 권한 여부를 추가하여 관리자만 로그인할 수 있도록 지정 가능
 
-```
+```C#
 // 입력한 userID와 password가 일치하는 UserID를 받아와 비교
                     var query = "select userID from membertbl " +
                                 " where userID = @userID " +
@@ -71,10 +71,10 @@ if (string.IsNullOrEmpty(TxtUserID.Text) || string.IsNullOrEmpty(TxtPassword.Tex
 strUserId = reader["UserID"] != null ? reader["userID"].ToString() : "";
 
 if (string.IsNullOrEmpty(strUserId))
-                    {
-                        MetroMessageBox.Show(this, "접속실패", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                    }
+    {
+	MetroMessageBox.Show(this, "접속실패", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	    return;
+    }
 ```
 
 ## 3. Sql Injectrion 
@@ -82,23 +82,23 @@ if (string.IsNullOrEmpty(strUserId))
 * Sql Injectrion : 입력창에 쿼리문을 입력하여 DB 데이터를 조작
 * 'SqlParameter'를 활용하여 'SqlCommand'를 로드하여 Sql Injectrion 예방
 * Helper-Common에서 DB연결 및 'SqlCommand' 예방
-```
+```C#
  // Sql Command 생성
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    // Sql injection 예방
-                    SqlParameter pUserID = new SqlParameter("@userID", SqlDbType.VarChar, 20);
-                    pUserID.Value = TxtUserID.Text;
-                    cmd.Parameters.Add(pUserID);
+    SqlCommand cmd = new SqlCommand(query, conn);
+    // Sql injection 예방
+    SqlParameter pUserID = new SqlParameter("@userID", SqlDbType.VarChar, 20);
+    pUserID.Value = TxtUserID.Text;
+    cmd.Parameters.Add(pUserID);
 
-                    SqlParameter pPassword = new SqlParameter("@Passwords", SqlDbType.VarChar, 20);
-                    pPassword.Value = TxtPassword.Text;
-                    cmd.Parameters.Add(pPassword);
+    SqlParameter pPassword = new SqlParameter("@Passwords", SqlDbType.VarChar, 20);
+    pPassword.Value = TxtPassword.Text;
+    cmd.Parameters.Add(pPassword);
 ```
 
 * Sql Injection을 예방하기위헤 ',--,; 을 특수문자 및 빈칸으로 변경 
 
 ### Helper Folder - Common
-```
+```C#
 public static class Common
     {
         ......
@@ -116,7 +116,7 @@ public static class Common
 
 ## 4. ip주소와 접속시간을 DB에 update
 
-```
+```C#
 else
                     {
                         var updateQuery = $@"update membertbl set 
@@ -132,7 +132,7 @@ else
 
 ### Helper Folder - Common
 
-```
+```C#
 public static class Common
     {
         public static string ConnString = "Data Source=127.0.0.1;" +
@@ -168,50 +168,50 @@ public static class Common
 * 데이터 그리드 뷰에서 DB 데이터를 로드
 * 모듈화시켜 데이터에 변동이 생길 시 실시간으로 로드시킴
 
-```
+```C#
 private void FrmDivCode_Load(object sender, EventArgs e)
-        {
-            RefreshData();
-            ClearInputs();
-        }
+{
+    RefreshData();
+    ClearInputs();
+}
  
 private void RefreshData()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
+{
+    try
+    {
+	using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+	{
+	    if (conn.State == ConnectionState.Closed) conn.Open();
 
-                    var query = "Select [Division]" +
-                                "      ,[Names]" +
-                                "  from [dbo].[divtbl]";
+	    var query = "Select [Division]" +
+			"      ,[Names]" +
+			"  from [dbo].[divtbl]";
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataSet ds = new DataSet();
-                    adapter.Fill(ds, "divtbl");
+	    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+	    DataSet ds = new DataSet();
+	    adapter.Fill(ds, "divtbl");
 
-                    DgvData.DataSource = ds;
-                    DgvData.DataMember = "divtbl";
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+	    DgvData.DataSource = ds;
+	    DgvData.DataMember = "divtbl";
+	}
+    }
+    catch (Exception ex)
+    {
+	MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 ```
 * 상세 그룹에 입력 데이터 값을 빈값으로 로드
 * 모듈화 시켜 저장 및 삭제 후에도 정보를 초기화 시켜줌
 * 신규 데이터 생성 전 입력 데이터 값 초기화 
-```
+```C#
 private void ClearInputs()
-        {
-            TxtDivision.Text = TxtDivision.Text = "";
-            TxtName.Text = TxtName.Text = "";
-            TxtDivision.ReadOnly = false;
-            IsNew = true;
-        }
+{
+    TxtDivision.Text = TxtDivision.Text = "";
+    TxtName.Text = TxtName.Text = "";
+    TxtDivision.ReadOnly = false;
+    IsNew = true;
+}
 ```
 
 ## 2. 데이터 선택 및 로드
@@ -219,35 +219,35 @@ private void ClearInputs()
 * 상세 입력 데이터에 DB에 선택한 값을 표기
 * isnew = false로 변경하여 '저장' 시 선택된 값이 변경
 
-```
+```C#
 private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1) //선택된 값이 존재(rowindex : 0~)
-            {
-                var selData = DgvData.Rows[e.RowIndex];
-                TxtDivision.Text = selData.Cells[0].Value.ToString();
-                TxtName.Text = selData.Cells[1].Value.ToString();
-                TxtDivision.ReadOnly = true;
-                IsNew = false;
-            }
-        }
+{
+    if (e.RowIndex > -1) //선택된 값이 존재(rowindex : 0~)
+    {
+	var selData = DgvData.Rows[e.RowIndex];
+	TxtDivision.Text = selData.Cells[0].Value.ToString();
+	TxtName.Text = selData.Cells[1].Value.ToString();
+	TxtDivision.ReadOnly = true;
+	IsNew = false;
+    }
+}
 ```
 
 ## 3. 입력 데이터 값 검증
 
 * 데이터 저장(신규 및 업데이트) 전 필수 값들이 null 값이 아닌지 체크
 
-```
+```C#
 private bool CheckValidation()
-        {
-            if (string.IsNullOrEmpty(TxtDivision.Text) || string.IsNullOrEmpty(TxtName.Text))
-            {
-                MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            return true;
-        }
+{
+    if (string.IsNullOrEmpty(TxtDivision.Text) || string.IsNullOrEmpty(TxtName.Text))
+    {
+	MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
+	    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	return false;
+    }
+    return true;
+}
 ```
 
 ## 4. 데이터 저장 (신규 생성 및 업데이트)
@@ -257,128 +257,128 @@ private bool CheckValidation()
 * 데이터 저장 후 RefreshData()로  DB데이터를 최신을로 로드
 * ClearInput()으로 상세 입력 데이터 초기화 및 isnew = true로 변경
 
-```
+```C#
 private void BtnNew_Click(object sender, EventArgs e)
-        {
-            ClearInputs();
-        }
+{
+    ClearInputs();
+}
         
 private void BtnSave_Click(object sender, EventArgs e)
-        {
-            if (CheckValidation() == false) return;
+{
+    if (CheckValidation() == false) return;
 
-            SaveDate();
-            RefreshData();
-            ClearInputs();
-        }
+    SaveDate();
+    RefreshData();
+    ClearInputs();
+}
 ```
 
-```
+```C#
 private void SaveDate()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
+{
+    try
+    {
+	using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+	{
+	    if (conn.State == ConnectionState.Closed) conn.Open();
 
-                    var query = "";
+	    var query = "";
 
-                    if (IsNew == true)
-                    {
-                        query = "Insert into dbo.divtbl " +
-                            " values " +
-                            " (@Division, @Names) ";
-                    }
-                    else
-                    {
-                        query = "UPDATE [dbo].[divtbl] " +
-                            " SET [Names] = @Names " +
-                            " WHERE [Division] = @Division";
-                    }
+	    if (IsNew == true)
+	    {
+		query = "Insert into dbo.divtbl " +
+		    " values " +
+		    " (@Division, @Names) ";
+	    }
+	    else
+	    {
+		query = "UPDATE [dbo].[divtbl] " +
+		    " SET [Names] = @Names " +
+		    " WHERE [Division] = @Division";
+	    }
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
+	    SqlCommand cmd = new SqlCommand(query, conn);
 
-                    SqlParameter pNames = new SqlParameter("@Names", SqlDbType.NVarChar, 45);
-                    pNames.Value = TxtName.Text;
-                    cmd.Parameters.Add(pNames);
+	    SqlParameter pNames = new SqlParameter("@Names", SqlDbType.NVarChar, 45);
+	    pNames.Value = TxtName.Text;
+	    cmd.Parameters.Add(pNames);
 
-                    SqlParameter pDivision = new SqlParameter("@Division", SqlDbType.NVarChar, 45);
-                    pDivision.Value = TxtDivision.Text;
-                    cmd.Parameters.Add(pDivision);
+	    SqlParameter pDivision = new SqlParameter("@Division", SqlDbType.NVarChar, 45);
+	    pDivision.Value = TxtDivision.Text;
+	    cmd.Parameters.Add(pDivision);
 
-                    var result = cmd.ExecuteNonQuery();
-                    if (result == 1)
-                    {
-                        MetroMessageBox.Show(this, "저장 성공", "저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MetroMessageBox.Show(this, "저장 실패", "저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+	    var result = cmd.ExecuteNonQuery();
+	    if (result == 1)
+	    {
+		MetroMessageBox.Show(this, "저장 성공", "저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+	    }
+	    else
+	    {
+		MetroMessageBox.Show(this, "저장 실패", "저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	    }
+	}
+    }
+    catch (Exception ex)
+    {
+	MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 ```
 
 ## 5. 데이터 삭제
 
 * 선택된 값을 DB에서 삭제시킴
 
-```
+```C#
 private void BtnDelete_Click(object sender, EventArgs e)
-        {
-            // Validation 유효성 체크
-            if (CheckValidation() == false) return;
+{
+    // Validation 유효성 체크
+    if (CheckValidation() == false) return;
 
-            DeleteDate();
-            RefreshData();
-            ClearInputs();
-        }
+    DeleteDate();
+    RefreshData();
+    ClearInputs();
+}
 
 private void DeleteDate()
-        {
-            try
-            {
-                if (MetroMessageBox.Show(this, "삭제하시겠습니까?", "삭제",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                    {
-                        if (conn.State == ConnectionState.Closed) conn.Open();
+{
+    try
+    {
+	if (MetroMessageBox.Show(this, "삭제하시겠습니까?", "삭제",
+	MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+	{
+	    using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+	    {
+		if (conn.State == ConnectionState.Closed) conn.Open();
 
-                        var query = "";
+		var query = "";
 
-                        query = "Delete From [dbo].divtbl" +
-                                " WHERE [Division] = @Division";
+		query = "Delete From [dbo].divtbl" +
+			" WHERE [Division] = @Division";
 
-                        SqlCommand cmd = new SqlCommand(query, conn);
+		SqlCommand cmd = new SqlCommand(query, conn);
 
-                        SqlParameter pDivision = new SqlParameter("@Division", SqlDbType.NVarChar, 45);
-                        pDivision.Value = TxtDivision.Text;
-                        cmd.Parameters.Add(pDivision);
+		SqlParameter pDivision = new SqlParameter("@Division", SqlDbType.NVarChar, 45);
+		pDivision.Value = TxtDivision.Text;
+		cmd.Parameters.Add(pDivision);
 
-                        var result = cmd.ExecuteNonQuery();
-                        if (result == 1)
-                        {
-                            MetroMessageBox.Show(this, "삭제 성공", "저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MetroMessageBox.Show(this, "삭제 실패", "저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+		var result = cmd.ExecuteNonQuery();
+		if (result == 1)
+		{
+		    MetroMessageBox.Show(this, "삭제 성공", "저장", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+		else
+		{
+		    MetroMessageBox.Show(this, "삭제 실패", "저장", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+	    }
+	}
+    }
+    catch (Exception ex)
+    {
+	MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 ```
 -------------------------------
 # 회원관리
@@ -393,23 +393,23 @@ private void DeleteDate()
 * 선택 데이터 삭제
 * 내부 데이터 값만 변경
 
-```
+```C#
 private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1) //선택된 값이 존재하면
-            {
-                var selData = DgvData.Rows[e.RowIndex];
-                TxtIdx.Text = selData.Cells[0].Value.ToString();
-                TxtName.Text = selData.Cells[1].Value.ToString();
-                CboLevels.SelectedItem = selData.Cells[2].Value.ToString();
-                TxtAddr.Text = selData.Cells[3].Value.ToString();
-                TxtMobile.Text = selData.Cells[4].Value.ToString();
-                TxtEmail.Text = selData.Cells[5].Value.ToString();
-                TxtUserID.Text = selData.Cells[6].Value.ToString();
-                TxtIdx.ReadOnly = true;
-                IsNew = false;
-            }
-        }
+{
+    if (e.RowIndex > -1) //선택된 값이 존재하면
+    {
+	var selData = DgvData.Rows[e.RowIndex];
+	TxtIdx.Text = selData.Cells[0].Value.ToString();
+	TxtName.Text = selData.Cells[1].Value.ToString();
+	CboLevels.SelectedItem = selData.Cells[2].Value.ToString();
+	TxtAddr.Text = selData.Cells[3].Value.ToString();
+	TxtMobile.Text = selData.Cells[4].Value.ToString();
+	TxtEmail.Text = selData.Cells[5].Value.ToString();
+	TxtUserID.Text = selData.Cells[6].Value.ToString();
+	TxtIdx.ReadOnly = true;
+	IsNew = false;
+    }
+}
 ```
 
 
@@ -427,30 +427,30 @@ private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
 * 선택 데이터 삭제
 * 내부 데이터 값만 변경 (날짜 데이터 형식 유의)
 
-```
+```C#
 private void FrmDivCode_Load(object sender, EventArgs e)
-        {
-            IsNew = true; //신규인지 구분(초기화)
-            InitCboData(); // 콤보박스 들어가는 데이터 조회
-            RefreshData(); //테이블 조회
-            ClearInputs();
+{
+    IsNew = true; //신규인지 구분(초기화)
+    InitCboData(); // 콤보박스 들어가는 데이터 조회
+    RefreshData(); //테이블 조회
+    ClearInputs();
 
-            DtpReleaseDate.CustomFormat = "yyyy-MM-dd";
-            DtpReleaseDate.Format = DateTimePickerFormat.Custom;
-        }
+    DtpReleaseDate.CustomFormat = "yyyy-MM-dd";
+    DtpReleaseDate.Format = DateTimePickerFormat.Custom;
+}
         
 private void AsignToControls(DataGridViewRow selData)
-        {
-            TxtIdx.Text = selData.Cells[0].Value.ToString();
-            TxtAuthor.Text = selData.Cells[1].Value.ToString();
-            CboDivision.SelectedValue = selData.Cells[2].Value.ToString();
-            DtpReleaseDate.Value = (DateTime)selData.Cells[5].Value;
-            TxtNames.Text = selData.Cells[4].Value.ToString();
-            TxtISBN.Text = selData.Cells[6].Value.ToString();
-            TxtPrice.Text = selData.Cells[7].Value.ToString();
-            TxtDescriptions.Text = selData.Cells[8].Value.ToString();
-            TxtIdx.ReadOnly = true;
-        }
+{
+    TxtIdx.Text = selData.Cells[0].Value.ToString();
+    TxtAuthor.Text = selData.Cells[1].Value.ToString();
+    CboDivision.SelectedValue = selData.Cells[2].Value.ToString();
+    DtpReleaseDate.Value = (DateTime)selData.Cells[5].Value;
+    TxtNames.Text = selData.Cells[4].Value.ToString();
+    TxtISBN.Text = selData.Cells[6].Value.ToString();
+    TxtPrice.Text = selData.Cells[7].Value.ToString();
+    TxtDescriptions.Text = selData.Cells[8].Value.ToString();
+    TxtIdx.ReadOnly = true;
+}
 ```
 -------------------------------
 # 대여관리
@@ -466,143 +466,143 @@ private void AsignToControls(DataGridViewRow selData)
   
 ```
 private void FrmDivCode_Load(object sender, EventArgs e)
-        {
-            IsNew = true; //신규인지 구분(초기화)
-            InitCboData(); // 콤보박스 들어가는 데이터 조회
-            RefreshData(); //테이블 조회
-            ClearInputs();
+{
+    IsNew = true; //신규인지 구분(초기화)
+    InitCboData(); // 콤보박스 들어가는 데이터 조회
+    RefreshData(); //테이블 조회
+    ClearInputs();
 
-            DtpRentalDate.CustomFormat = "yyyy-MM-dd";
-            DtpRentalDate.Format = DateTimePickerFormat.Custom;
-        }
+    DtpRentalDate.CustomFormat = "yyyy-MM-dd";
+    DtpRentalDate.Format = DateTimePickerFormat.Custom;
+}
         
  private void InitCboData() 
-        {
-            try
-            {
-                var temp = new Dictionary<string, string>();
-                temp.Add("R", "대여");
-                temp.Add("T", "반납");
+{
+    try
+    {
+	var temp = new Dictionary<string, string>();
+	temp.Add("R", "대여");
+	temp.Add("T", "반납");
 
-                CboRentalState.DataSource = new BindingSource(temp, null);
-                CboRentalState.DisplayMember = "Value";
-                CboRentalState.ValueMember = "Key";
-                CboRentalState.SelectedIndex = -1;
-            }
-            catch { }
-        }
+	CboRentalState.DataSource = new BindingSource(temp, null);
+	CboRentalState.DisplayMember = "Value";
+	CboRentalState.ValueMember = "Key";
+	CboRentalState.SelectedIndex = -1;
+    }
+    catch { }
+}
  
  private void RefreshData()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
+{
+    try
+    {
+	using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+	{
+	    if (conn.State == ConnectionState.Closed) conn.Open();
 
-                    var query = @"SELECT r.Idx
-                                      ,r.memberIdx
-	                                  ,m.Names as memberName
-                                      ,r.bookIdx
-	                                  ,b.Names as bookName
-                                      ,r.rentalDate
-                                      ,r.returnDate
-	                                  ,r.rentalState
-                                      ,case r.rentalState 
-	                                      when 'R' then '대여중'
-	                                      when 'T' then '반납' 
-	                                      else '상태없음'
-	                                   end as StateDesc
-                                  FROM dbo.rentaltbl as r
-                                 INNER JOIN dbo.membertbl as m
-                                    ON r.memberIdx = m.Idx
-                                 INNER JOIN dbo.bookstbl as b
-                                    ON r.bookIdx = b.Idx;";
+	    var query = @"SELECT r.Idx
+			      ,r.memberIdx
+				  ,m.Names as memberName
+			      ,r.bookIdx
+				  ,b.Names as bookName
+			      ,r.rentalDate
+			      ,r.returnDate
+				  ,r.rentalState
+			      ,case r.rentalState 
+				      when 'R' then '대여중'
+				      when 'T' then '반납' 
+				      else '상태없음'
+				   end as StateDesc
+			  FROM dbo.rentaltbl as r
+			 INNER JOIN dbo.membertbl as m
+			    ON r.memberIdx = m.Idx
+			 INNER JOIN dbo.bookstbl as b
+			    ON r.bookIdx = b.Idx;";
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn); // 가져올 데이터베이스를 변환
-                    DataSet ds = new DataSet(); // 가상의 데이터베이스
-                    adapter.Fill(ds, "rentaltbl");
+	    SqlDataAdapter adapter = new SqlDataAdapter(query, conn); // 가져올 데이터베이스를 변환
+	    DataSet ds = new DataSet(); // 가상의 데이터베이스
+	    adapter.Fill(ds, "rentaltbl");
 
-                    DgvData.DataSource = ds;
-                    DgvData.DataMember = "rentaltbl";
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            var column = DgvData.Columns[1]; //MemberIdx column
-            column.Visible = false;
-            column = DgvData.Columns[3]; //BookIdx column
-            column.Visible = false;
-         }
+	    DgvData.DataSource = ds;
+	    DgvData.DataMember = "rentaltbl";
+	}
+    }
+    catch (Exception ex)
+    {
+	MetroMessageBox.Show(this, $"예외발생 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+    var column = DgvData.Columns[1]; //MemberIdx column
+    column.Visible = false;
+    column = DgvData.Columns[3]; //BookIdx column
+    column.Visible = false;
+ }
          
 private void ClearInputs()
-        {
-            selMemberIdx = 0;
-            selMemberName = "";
-            selBookIdx = 0;
-            selBookName = "";
-            TxtBookName.Text = TxtMemberName.Text = "";
-            TxtIdx.Text = "";
-            DtpRentalDate.Value = DateTime.Now;
-            TxtReturnDate.Text = "";
-            CboRentalState.SelectedIndex = -1;
+{
+    selMemberIdx = 0;
+    selMemberName = "";
+    selBookIdx = 0;
+    selBookName = "";
+    TxtBookName.Text = TxtMemberName.Text = "";
+    TxtIdx.Text = "";
+    DtpRentalDate.Value = DateTime.Now;
+    TxtReturnDate.Text = "";
+    CboRentalState.SelectedIndex = -1;
 
-            IsNew = true;
-            BtnSearchMember.Enabled = BtnSearchBook.Enabled = true;
-            DtpRentalDate.Enabled = true;
-        }
+    IsNew = true;
+    BtnSearchMember.Enabled = BtnSearchBook.Enabled = true;
+    DtpRentalDate.Enabled = true;
+}
 ```
 ## 2. 데이터 선택 및 로드
 
 * 검색 창 및 날짜  선택 창 비활성화
 
-```
+```C#
 private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1) //선택된 값이 존재하면
-            {
-                var selData = DgvData.Rows[e.RowIndex];
-                AsignToControls(selData);
-                
-                IsNew = false;
-                BtnSearchMember.Enabled = BtnSearchBook.Enabled = false;
-                DtpRentalDate.Enabled = false;
-            }
-        }
+{
+    if (e.RowIndex > -1) //선택된 값이 존재하면
+    {
+	var selData = DgvData.Rows[e.RowIndex];
+	AsignToControls(selData);
+
+	IsNew = false;
+	BtnSearchMember.Enabled = BtnSearchBook.Enabled = false;
+	DtpRentalDate.Enabled = false;
+    }
+}
  
  private void AsignToControls(DataGridViewRow selData)
-        {
-            TxtIdx.Text = selData.Cells[0].Value.ToString();
-            selMemberIdx = (int)selData.Cells[1].Value;
-            Debug.WriteLine($">>>> selMemberIdx : {selMemberIdx}");
-            TxtMemberName.Text = selData.Cells[2].Value.ToString();
-            selBookIdx = (int)selData.Cells[3].Value;
-            Debug.WriteLine($">>>> selBookIdx : {selBookIdx}");
-            TxtBookName.Text = selData.Cells[4].Value.ToString();
-            DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
-            TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
-            CboRentalState.SelectedValue = selData.Cells[7].Value;
+{
+    TxtIdx.Text = selData.Cells[0].Value.ToString();
+    selMemberIdx = (int)selData.Cells[1].Value;
+    Debug.WriteLine($">>>> selMemberIdx : {selMemberIdx}");
+    TxtMemberName.Text = selData.Cells[2].Value.ToString();
+    selBookIdx = (int)selData.Cells[3].Value;
+    Debug.WriteLine($">>>> selBookIdx : {selBookIdx}");
+    TxtBookName.Text = selData.Cells[4].Value.ToString();
+    DtpRentalDate.Value = (DateTime)selData.Cells[5].Value;
+    TxtReturnDate.Text = selData.Cells[6].Value == null ? "" : selData.Cells[6].Value.ToString();
+    CboRentalState.SelectedValue = selData.Cells[7].Value;
 
-            TxtIdx.ReadOnly = true;
-        }
+    TxtIdx.ReadOnly = true;
+}
 ```
 
 ## 3. 데이터 값 검증
 
-```
+```C#
 private bool CheckValidation()
-        {
-            if ( string.IsNullOrEmpty(TxtMemberName.Text) || string.IsNullOrEmpty(TxtBookName.Text) ||
-                DtpRentalDate.Value == null)
-            {
-                MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            return true;
-        }
+{
+    if ( string.IsNullOrEmpty(TxtMemberName.Text) || string.IsNullOrEmpty(TxtBookName.Text) ||
+	DtpRentalDate.Value == null)
+    {
+	MetroMessageBox.Show(this, "빈값은 처리할 수 없습니다.", "경고",
+	    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	return false;
+    }
+    return true;
+}
 ```
 
 ## 4. 데이터 저장
@@ -611,44 +611,44 @@ private bool CheckValidation()
 * 기존 데이터일 때는 반납
 * Isnew로 구분
 
-```
+```C#
 private void SaveData()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
-                {
-                    if (conn.State == ConnectionState.Closed) conn.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
-                    var query = "";
-                    
-                    if (IsNew == true)
-                    {
-                        query = @"INSERT into [dbo].[rentaltbl]
-                                                   ([memberIdx]
-                                                   ,[bookIdx]
-                                                   ,[rentalDate]
-                                                   ,[rentalState])
-                                             VALUES
-                                                   (@memberIdx
-                                                   ,@bookIdx
-                                                   ,@rentalDate
-                                                   ,@rentalState)";
-                    }
-                    else
-                    {
-                        query = @"UPDATE [dbo].[rentaltbl]
-                                       SET [returnDate] = case @rentalState
-                                                          when 'T' then GETDATE()
-                                                          when 'R' then null end
-                                          ,[rentalState] = @rentalState
-                                     WHERE Idx = @Idx ";
-                    }
+{
+    try
+    {
+	using (SqlConnection conn = new SqlConnection(Helper.Common.ConnString))
+	{
+	    if (conn.State == ConnectionState.Closed) conn.Open();
+	    SqlCommand cmd = new SqlCommand();
+	    cmd.Connection = conn;
+	    var query = "";
 
-                    cmd.CommandText = query;
-         ......
-        }
+	    if (IsNew == true)
+	    {
+		query = @"INSERT into [dbo].[rentaltbl]
+					   ([memberIdx]
+					   ,[bookIdx]
+					   ,[rentalDate]
+					   ,[rentalState])
+				     VALUES
+					   (@memberIdx
+					   ,@bookIdx
+					   ,@rentalDate
+					   ,@rentalState)";
+	    }
+	    else
+	    {
+		query = @"UPDATE [dbo].[rentaltbl]
+			       SET [returnDate] = case @rentalState
+						  when 'T' then GETDATE()
+						  when 'R' then null end
+				  ,[rentalState] = @rentalState
+			     WHERE Idx = @Idx ";
+	    }
+
+	    cmd.CommandText = query;
+ ......
+}
 ```
 
 ## 5. 회원 및 도서 검색
@@ -659,16 +659,16 @@ private void SaveData()
 * FrmMemvberPopup에서 선택한 DB 값의 idx와 Name을 전역변수에 호출하여 FrmRental에서 사용
 * 도서 검색은 회원 검색과 방식 동일
 
-```
+```C#
 private void BtnSearchMember_Click(object sender, EventArgs e)
-        {
-            FrmMemberPopup frm = new FrmMemberPopup();
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                selMemberIdx = frm.SelIdx;
-                TxtMemberName.Text = selMemberName = frm.SelName;
-            }
-        }
+{
+    FrmMemberPopup frm = new FrmMemberPopup();
+    if (frm.ShowDialog() == DialogResult.OK)
+    {
+	selMemberIdx = frm.SelIdx;
+	TxtMemberName.Text = selMemberName = frm.SelName;
+    }
+}
 
 public partial class FrmMemberPopup : MetroForm
  {
@@ -687,26 +687,27 @@ public partial class FrmMemberPopup : MetroForm
         }
 
 private void BtnSelect_Click(object sender, EventArgs e)
-        {
-            if (DgvData.SelectedRows.Count == 0)
-            {
-                MetroMessageBox.Show(this, "데이터를 선택하세요!", "경고",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (DgvData.SelectedRows.Count > 1)
-            {
-                MetroMessageBox.Show(this, "데이터를 한 개만 선택하세요!", "경고",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else
-            {
-                SelIdx = (int)DgvData.SelectedRows[0].Cells[0].Value;
-                SelName = DgvData.SelectedRows[0].Cells[1].Value.ToString();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
+{
+    if (DgvData.SelectedRows.Count == 0)
+    {
+	MetroMessageBox.Show(this, "데이터를 선택하세요!", "경고",
+	    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	return;
+    }
+    else if (DgvData.SelectedRows.Count > 1)
+    {
+	MetroMessageBox.Show(this, "데이터를 한 개만 선택하세요!", "경고",
+	    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+	return;
+    }
+    else
+    {
+	SelIdx = (int)DgvData.SelectedRows[0].Cells[0].Value;
+	SelName = DgvData.SelectedRows[0].Cells[1].Value.ToString();
+	this.DialogResult = DialogResult.OK;
+	this.Close();
+    }
+}
 ```
 -------------------------------
 # 종료
@@ -715,26 +716,26 @@ private void BtnSelect_Click(object sender, EventArgs e)
 
 ## 1. 메뉴 종료 버튼이나 window 종료 버튼 시 활성화
 
-```
+```C#
 private void MnuExit_Click(object sender, EventArgs e)
-        {
-            if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Environment.Exit(0);
-            }
-        }
+{
+    if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
+	MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+    {
+	Environment.Exit(0);
+    }
+}
 
 private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                e.Cancel = false;
-                Environment.Exit(0);
-            }
-            else
-                e.Cancel = true;
-        }
+{
+    if (MetroMessageBox.Show(this, "종료하시겠습니까?", "종료",
+	MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+    {
+	e.Cancel = false;
+	Environment.Exit(0);
+    }
+    else
+	e.Cancel = true;
+}
 ```
 -------------------------------
