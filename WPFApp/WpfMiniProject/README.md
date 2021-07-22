@@ -7,7 +7,7 @@
 <kbd>![Main](/Capture/MovieApi/Main.PNG "Main")</kbd>
 
 - Naver OpenAPI를 활용 **(openApiUrl, clientID, clientSecret)**
-```
+```C#
 public static string GetOpenApiResult(string openApiUrl, string clientID, string clientSecret)
 {
     var result = "";
@@ -39,7 +39,7 @@ public static string GetOpenApiResult(string openApiUrl, string clientID, string
 ```
 - 받은 결과 값을 Json 형태로 변환하여 MovieItem형태의 List에 받아서 출력
 - MovieItem은 Common에서 class를 선언하여 객체를 생성할 수 있도록 함
-```
+```C#
 private void ProcSearchNaverApi(string movieName)
 {
     string clientID = "Jj1Shad6ZWLtrFfb1bBd";
@@ -78,7 +78,7 @@ private void ProcSearchNaverApi(string movieName)
 }
 ```
 - 받은 결과값의 HTML태그는 제거
-```
+```C#
 public static string StripHtmlTag(string text)
 {
     return Regex.Replace(text, @"<(.|\n)*?>", ""); //HTML 태그 삭제하는 정규 표현식
@@ -109,7 +109,7 @@ public static string Stripamp(string text)
 - Entity Framework를 활용하여 DB를 불러와 데이터 로드 및 수정
 - 'isFavorite'을 통해 데이터 중복 방지
 - 선택한 영화들을 List를 선언해 추가
-```
+```C#
 private void BtnAddWatchList_Click(object sender, RoutedEventArgs e)
         {
             if (GrdData.SelectedItems.Count == 0)
@@ -170,7 +170,7 @@ private void BtnAddWatchList_Click(object sender, RoutedEventArgs e)
 
 - YoutubeAPI를 활용하여 Youtube 검색 및 결과 불러오기
 - YoutubeItem class를 선언하여 객체 생성
-```
+```C#
 private async Task LoadDataCollection()
 {
     var youtubeService = new YouTubeService(
@@ -204,7 +204,7 @@ private async Task LoadDataCollection()
 }
 ```
 - 더블 클릭 시 영상 불러오기
-```
+```C#
 if (LsvYoutubeSearch.SelectedItem is YoutubeItem)
 {
     var video = LsvYoutubeSearch.SelectedItem as YoutubeItem;
